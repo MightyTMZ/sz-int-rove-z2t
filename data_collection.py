@@ -6,6 +6,10 @@ load_dotenv()
 key = os.environ.get("api-key")
 secret = os.environ.get("api-secret")
 
+print("Key", key)
+print("Secret", secret)
+
+
 def update_token():
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
