@@ -1,7 +1,10 @@
-docker build -t s2-int-rove-z2t:<tag> .
+docker build -t s2-int-rove-z2t:<tag_name> .
 
-docker image tag <image_id> mightytmz/sz-int-rove-z2t:<new_tag>
+docker image tag <image_id> mightytmz/sz-int-rove-z2t:<tag_name>
 
 docker login
 
-docker push mightytmz/sz-int-rove-z2t:<new_tag>
+docker push mightytmz/sz-int-rove-z2t:<tag_name>
+
+
+https://hub.docker.com/repository/docker/mightytmz/s2-int-rove-z2t/
