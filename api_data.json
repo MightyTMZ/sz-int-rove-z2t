@@ -1,0 +1,461 @@
+{
+    "data": [
+        {
+            "type": "flight-destination",
+            "origin": "XPG",
+            "destination": "QQS",
+            "departureDate": "2025-09-03",
+            "returnDate": "2025-09-09",
+            "price": {
+                "total": "115.0"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=XPG&destination=QQS&departureDate=2025-09-03,2025-09-09&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=XPG&destinationLocationCode=QQS&departureDate=2025-09-03&returnDate=2025-09-09&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "FCO",
+            "departureDate": "2025-08-26",
+            "returnDate": "2025-08-27",
+            "price": {
+                "total": "138.83"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=FCO&departureDate=2025-08-26,2025-08-27&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=FCO&departureDate=2025-08-26&returnDate=2025-08-27&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "LIN",
+            "departureDate": "2025-09-02",
+            "returnDate": "2025-09-09",
+            "price": {
+                "total": "139.72"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=LIN&departureDate=2025-09-02,2025-09-09&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=LIN&departureDate=2025-09-02&returnDate=2025-09-09&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "MAD",
+            "departureDate": "2025-09-02",
+            "returnDate": "2025-09-09",
+            "price": {
+                "total": "140.68"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=MAD&departureDate=2025-09-02,2025-09-09&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=MAD&departureDate=2025-09-02&returnDate=2025-09-09&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "BCN",
+            "departureDate": "2025-09-03",
+            "returnDate": "2025-09-09",
+            "price": {
+                "total": "154.76"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=BCN&departureDate=2025-09-03,2025-09-09&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=BCN&departureDate=2025-09-03&returnDate=2025-09-09&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "OPO",
+            "departureDate": "2025-09-04",
+            "returnDate": "2025-09-08",
+            "price": {
+                "total": "160.23"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=OPO&departureDate=2025-09-04,2025-09-08&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=OPO&departureDate=2025-09-04&returnDate=2025-09-08&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "OPO",
+            "departureDate": "2025-09-05",
+            "returnDate": "2025-09-11",
+            "price": {
+                "total": "165.69"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=OPO&departureDate=2025-09-05,2025-09-11&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=OPO&departureDate=2025-09-05&returnDate=2025-09-11&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "RAK",
+            "departureDate": "2025-09-04",
+            "returnDate": "2025-09-11",
+            "price": {
+                "total": "183.34"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=RAK&departureDate=2025-09-04,2025-09-11&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=RAK&departureDate=2025-09-04&returnDate=2025-09-11&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "CDG",
+            "destination": "TUN",
+            "departureDate": "2025-09-04",
+            "returnDate": "2025-09-11",
+            "price": {
+                "total": "188.47"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=CDG&destination=TUN&departureDate=2025-09-04,2025-09-11&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=CDG&destinationLocationCode=TUN&departureDate=2025-09-04&returnDate=2025-09-11&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "CDG",
+            "destination": "FCO",
+            "departureDate": "2025-09-03",
+            "returnDate": "2025-09-10",
+            "price": {
+                "total": "204.66"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=CDG&destination=FCO&departureDate=2025-09-03,2025-09-10&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=CDG&destinationLocationCode=FCO&departureDate=2025-09-03&returnDate=2025-09-10&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "CDG",
+            "destination": "AMS",
+            "departureDate": "2025-09-06",
+            "returnDate": "2025-09-07",
+            "price": {
+                "total": "249.05"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=CDG&destination=AMS&departureDate=2025-09-06,2025-09-07&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=CDG&destinationLocationCode=AMS&departureDate=2025-09-06&returnDate=2025-09-07&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "EWR",
+            "departureDate": "2025-09-04",
+            "returnDate": "2025-09-06",
+            "price": {
+                "total": "320.88"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=EWR&departureDate=2025-09-04,2025-09-06&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=EWR&departureDate=2025-09-04&returnDate=2025-09-06&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "SAW",
+            "departureDate": "2026-01-06",
+            "returnDate": "2026-01-14",
+            "price": {
+                "total": "324.75"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=SAW&departureDate=2026-01-06,2026-01-14&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=SAW&departureDate=2026-01-06&returnDate=2026-01-14&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "CDG",
+            "destination": "YQB",
+            "departureDate": "2025-09-06",
+            "returnDate": "2025-09-07",
+            "price": {
+                "total": "355.71"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=CDG&destination=YQB&departureDate=2025-09-06,2025-09-07&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=CDG&destinationLocationCode=YQB&departureDate=2025-09-06&returnDate=2025-09-07&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "LAX",
+            "departureDate": "2025-09-01",
+            "returnDate": "2025-09-03",
+            "price": {
+                "total": "429.57"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=LAX&departureDate=2025-09-01,2025-09-03&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=LAX&departureDate=2025-09-01&returnDate=2025-09-03&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "CDG",
+            "destination": "FRA",
+            "departureDate": "2025-09-04",
+            "returnDate": "2025-09-07",
+            "price": {
+                "total": "434.22"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=CDG&destination=FRA&departureDate=2025-09-04,2025-09-07&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=CDG&destinationLocationCode=FRA&departureDate=2025-09-04&returnDate=2025-09-07&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "CDG",
+            "destination": "YUL",
+            "departureDate": "2025-08-28",
+            "returnDate": "2025-09-04",
+            "price": {
+                "total": "477.87"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=CDG&destination=YUL&departureDate=2025-08-28,2025-09-04&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=CDG&destinationLocationCode=YUL&departureDate=2025-08-28&returnDate=2025-09-04&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "SFO",
+            "departureDate": "2025-09-06",
+            "returnDate": "2025-09-08",
+            "price": {
+                "total": "508.08"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=SFO&departureDate=2025-09-06,2025-09-08&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=SFO&departureDate=2025-09-06&returnDate=2025-09-08&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "CDG",
+            "destination": "MCT",
+            "departureDate": "2025-09-05",
+            "returnDate": "2025-09-07",
+            "price": {
+                "total": "578.68"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=CDG&destination=MCT&departureDate=2025-09-05,2025-09-07&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=CDG&destinationLocationCode=MCT&departureDate=2025-09-05&returnDate=2025-09-07&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "CDG",
+            "destination": "AMM",
+            "departureDate": "2025-09-05",
+            "returnDate": "2025-09-12",
+            "price": {
+                "total": "599.18"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=CDG&destination=AMM&departureDate=2025-09-05,2025-09-12&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=CDG&destinationLocationCode=AMM&departureDate=2025-09-05&returnDate=2025-09-12&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "FDF",
+            "departureDate": "2025-09-01",
+            "returnDate": "2025-09-08",
+            "price": {
+                "total": "625.64"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=FDF&departureDate=2025-09-01,2025-09-08&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=FDF&departureDate=2025-09-01&returnDate=2025-09-08&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "ORY",
+            "destination": "PTP",
+            "departureDate": "2025-09-08",
+            "returnDate": "2025-09-15",
+            "price": {
+                "total": "627.39"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=ORY&destination=PTP&departureDate=2025-09-08,2025-09-15&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=ORY&destinationLocationCode=PTP&departureDate=2025-09-08&returnDate=2025-09-15&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "CDG",
+            "destination": "PVG",
+            "departureDate": "2025-09-02",
+            "returnDate": "2025-09-08",
+            "price": {
+                "total": "683.37"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=CDG&destination=PVG&departureDate=2025-09-02,2025-09-08&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=CDG&destinationLocationCode=PVG&departureDate=2025-09-02&returnDate=2025-09-08&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        },
+        {
+            "type": "flight-destination",
+            "origin": "CDG",
+            "destination": "DEL",
+            "departureDate": "2025-09-03",
+            "returnDate": "2025-09-09",
+            "price": {
+                "total": "731.93"
+            },
+            "links": {
+                "flightDates": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=CDG&destination=DEL&departureDate=2025-09-03,2025-09-09&oneWay=false&nonStop=false&viewBy=DESTINATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=CDG&destinationLocationCode=DEL&departureDate=2025-09-03&returnDate=2025-09-09&adults=1&nonStop=false&viewBy=DESTINATION"
+            }
+        }
+    ],
+    "dictionaries": {
+        "currencies": {
+            "EUR": "Euro"
+        },
+        "locations": {
+            "PVG": {
+                "subType": "AIRPORT",
+                "detailedName": "PUDONG INTL"
+            },
+            "LAX": {
+                "subType": "AIRPORT",
+                "detailedName": "LOS ANGELES INTL"
+            },
+            "CDG": {
+                "subType": "AIRPORT",
+                "detailedName": "CHARLES DE GAULLE"
+            },
+            "SAW": {
+                "subType": "AIRPORT",
+                "detailedName": "SABIHA GOKCEN"
+            },
+            "FDF": {
+                "subType": "AIRPORT",
+                "detailedName": "MARTINIQUE A.CESAIRE"
+            },
+            "PTP": {
+                "subType": "AIRPORT",
+                "detailedName": "LE RAIZET"
+            },
+            "XPG": {
+                "subType": "AIRPORT",
+                "detailedName": "GARE DU NORD RAIL STN"
+            },
+            "OPO": {
+                "subType": "AIRPORT",
+                "detailedName": "FRANCISCO SA CARNEIRO"
+            },
+            "ORY": {
+                "subType": "AIRPORT",
+                "detailedName": "ORLY"
+            },
+            "SFO": {
+                "subType": "AIRPORT",
+                "detailedName": "SAN FRANCISCO INTL"
+            },
+            "EWR": {
+                "subType": "AIRPORT",
+                "detailedName": "NEWARK LIBERTY INTL"
+            },
+            "AMM": {
+                "subType": "AIRPORT",
+                "detailedName": "QUEEN ALIA"
+            },
+            "AMS": {
+                "subType": "AIRPORT",
+                "detailedName": "SCHIPHOL AIRPORT"
+            },
+            "DEL": {
+                "subType": "AIRPORT",
+                "detailedName": "INDIRA GANDHI INTL"
+            },
+            "YQB": {
+                "subType": "AIRPORT",
+                "detailedName": "JEAN LESAGE INTL"
+            },
+            "BCN": {
+                "subType": "AIRPORT",
+                "detailedName": "JOSEP TARRADELLAS BARCELONA"
+            },
+            "TUN": {
+                "subType": "AIRPORT",
+                "detailedName": "CARTHAGE"
+            },
+            "LIN": {
+                "subType": "AIRPORT",
+                "detailedName": "LINATE"
+            },
+            "MAD": {
+                "subType": "AIRPORT",
+                "detailedName": "ADOLFO SUAREZ BARAJAS"
+            },
+            "YUL": {
+                "subType": "AIRPORT",
+                "detailedName": "PIERRE E. TRUDEAU INTL"
+            },
+            "QQS": {
+                "subType": "AIRPORT",
+                "detailedName": "ST PANCRAS INTL RAILST"
+            },
+            "FCO": {
+                "subType": "AIRPORT",
+                "detailedName": "FIUMICINO"
+            },
+            "FRA": {
+                "subType": "AIRPORT",
+                "detailedName": "FRANKFURT INTL"
+            },
+            "RAK": {
+                "subType": "AIRPORT",
+                "detailedName": "MENARA"
+            },
+            "MCT": {
+                "subType": "AIRPORT",
+                "detailedName": "MUSCAT INTERNATIONAL"
+            }
+        }
+    },
+    "meta": {
+        "currency": "EUR",
+        "links": {
+            "self": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&departureDate=2025-07-26,2026-01-20&oneWay=false&nonStop=false&viewBy=DESTINATION"
+        },
+        "defaults": {
+            "departureDate": "2025-07-26,2026-01-20",
+            "oneWay": false,
+            "duration": "1,15",
+            "nonStop": false,
+            "viewBy": "DESTINATION"
+        }
+    },
+    "warnings": []
+}
