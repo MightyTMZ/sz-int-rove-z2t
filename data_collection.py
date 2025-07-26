@@ -32,5 +32,5 @@ def flight_destinations():
 if __name__ == "__main__":
     if os.environ.get("token") == None:
         update_token()
-    print(flight_destinations()) #Currently receiving Response code 500. API may be down temporarily
+    print(flight_destinations().text)
     

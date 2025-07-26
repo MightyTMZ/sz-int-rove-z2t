@@ -25,10 +25,13 @@ def fetch_flight_destinations():
     'Authorization': f'Bearer {os.environ.get("token")}',
     }
     params = {
-        'origin': 'PAR',
-        'maxPrice': '200',
+        'originLocationCode': 'BOS',
+        'destinationLocationCode': 'LAX',
+        'departureDate': '2025-07-30',
+        'returnDate': '2025-08-03',
+        'adults': '1'
     }
-    response = requests.get('https://test.api.amadeus.com/v1/shopping/flight-destinations', params=params, headers=headers)
+    response = requests.get('https://test.api.amadeus.com/v2/shopping/flight-offers', params=params, headers=headers)
     return response
 
 if __name__ == "__main__":
