@@ -3,7 +3,9 @@ import os
 import requests
 import json
 from datetime import date, timedelta
+from store_flights import save_to_csv, save_to_sqlite
 
+print("script started")
 
 load_dotenv()
 key = os.getenv("API_KEY")
@@ -53,4 +55,12 @@ if __name__ == "__main__":
         json.dump(city_pairs_data, f, indent=4)
 
     # wrap the execution of a block with methods defined by a context manager
+
+name = "test batch"
+
+save_to_csv(city_pairs_data, name)
+print(f"{name}.csv created!")
+
+save_to_sqlite(city_pairs_data, name)
+print(f"Data saved to SQLite for {name}!")
             
