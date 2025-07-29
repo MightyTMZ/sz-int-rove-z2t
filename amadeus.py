@@ -56,11 +56,6 @@ if __name__ == "__main__":
 
     # wrap the execution of a block with methods defined by a context manager
 
-name = "test batch"
-
-save_to_csv(city_pairs_data, name)
-print(f"{name}.csv created!")
-
-save_to_sqlite(city_pairs_data, name)
-print(f"Data saved to SQLite for {name}!")
-            
+for route, date_data in city_pairs_data.items():
+    for day, daily_response in date_data.items():
+        save_to_sqlite(daily_response, route)

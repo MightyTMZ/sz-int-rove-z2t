@@ -21,28 +21,29 @@ def save_to_csv(data, route_name):
                     airline = segment['carrierCode']
                     writer.writerow([date, airline, duration, price])
 
-def save_to_sqlite(data, route_name):
-    c.execute(f'''
-        CREATE TABLE IF NOT EXISTS {route_name.replace('-', '_')} (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            date TEXT,
-            airline TEXT,
-            flight_time TEXT,
-            price REAL
+def save_to_sqlite(flight_json, route, conn):
+    c = conn.cursor()
+
+    # Create table if not exists
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS flights (
+            route TEXT,
+            departure_date TEXT,
+            price REAL,
+            carrier TEXT
         )
     ''')
 
-    for offer in data.get('data', []):
-        price = float(offer['price']['total'])
-        for itinerary in offer['itineraries']:
-            duration = itinerary['duration']
-            for segment in itinerary['segments']:
-                date_ = segment['departure']['at']
-                airline = segment['carrierCode']
-                c.execute(f'''
-                    INSERT INTO {route_name.replace('-', '_')} (date, airline, flight_time, price)
-                    VALUES (?, ?, ?, ?)
-                ''', (date_, airline, duration, price))
+    # Extract data
+    try:
+        for offer in flight_json.get("data", []):
+            price = float(offer["price"]["total"])
+            carrier = offer["validatingAirlineCodes"][0]
+            departure_date = offer["itineraries"][0]["segments"][0]["departure"]["at"].split("T")[0]
 
-    conn.commit()
-    conn.close()
+            c.execute('''
+                INSERT INTO flights (route, departure_date, price, carrier)
+                VALUES (?, ?, ?, ?)
+            ''', (route, departure_date, price, carrier))
+    except Exception as e:
+        print(f"Error saving route {route}: {e}")
