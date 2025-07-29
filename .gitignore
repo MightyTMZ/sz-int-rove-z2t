@@ -2,3 +2,5 @@
 .idea
 
 rove
+
+__pycache__
