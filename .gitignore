@@ -2,5 +2,6 @@
 .idea
 
 rove
+venv
 
 __pycache__
