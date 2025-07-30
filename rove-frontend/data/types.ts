@@ -1,4 +1,4 @@
-interface FlightOfferList {
+export interface FlightOfferList {
   [route: string]: {
     [date: string]: FlightOfferDateEntry;
   };
