@@ -1,0 +1,130 @@
+{
+    "data": [
+        {
+            "type": "flight-date",
+            "origin": "PAR",
+            "destination": "NYC",
+            "departureDate": "2025-09-01",
+            "returnDate": "2025-09-08",
+            "price": {
+                "total": "523.22"
+            },
+            "links": {
+                "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&departureDate=2025-09-01&oneWay=false&nonStop=false&viewBy=DURATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=PAR&destinationLocationCode=NYC&departureDate=2025-09-01&returnDate=2025-09-08&adults=1&nonStop=false&viewBy=DURATION"
+            }
+        },
+        {
+            "type": "flight-date",
+            "origin": "PAR",
+            "destination": "NYC",
+            "departureDate": "2025-09-01",
+            "returnDate": "2025-09-07",
+            "price": {
+                "total": "565.09"
+            },
+            "links": {
+                "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&departureDate=2025-09-01&oneWay=false&nonStop=false&viewBy=DURATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=PAR&destinationLocationCode=NYC&departureDate=2025-09-01&returnDate=2025-09-07&adults=1&nonStop=false&viewBy=DURATION"
+            }
+        },
+        {
+            "type": "flight-date",
+            "origin": "PAR",
+            "destination": "NYC",
+            "departureDate": "2025-09-01",
+            "returnDate": "2025-09-05",
+            "price": {
+                "total": "571.25"
+            },
+            "links": {
+                "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&departureDate=2025-09-01&oneWay=false&nonStop=false&viewBy=DURATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=PAR&destinationLocationCode=NYC&departureDate=2025-09-01&returnDate=2025-09-05&adults=1&nonStop=false&viewBy=DURATION"
+            }
+        },
+        {
+            "type": "flight-date",
+            "origin": "PAR",
+            "destination": "NYC",
+            "departureDate": "2025-09-01",
+            "returnDate": "2025-09-06",
+            "price": {
+                "total": "571.25"
+            },
+            "links": {
+                "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&departureDate=2025-09-01&oneWay=false&nonStop=false&viewBy=DURATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=PAR&destinationLocationCode=NYC&departureDate=2025-09-01&returnDate=2025-09-06&adults=1&nonStop=false&viewBy=DURATION"
+            }
+        },
+        {
+            "type": "flight-date",
+            "origin": "PAR",
+            "destination": "NYC",
+            "departureDate": "2025-09-01",
+            "returnDate": "2025-09-02",
+            "price": {
+                "total": "680.86"
+            },
+            "links": {
+                "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&departureDate=2025-09-01&oneWay=false&nonStop=false&viewBy=DURATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=PAR&destinationLocationCode=NYC&departureDate=2025-09-01&returnDate=2025-09-02&adults=1&nonStop=false&viewBy=DURATION"
+            }
+        },
+        {
+            "type": "flight-date",
+            "origin": "PAR",
+            "destination": "NYC",
+            "departureDate": "2025-09-01",
+            "returnDate": "2025-09-03",
+            "price": {
+                "total": "680.86"
+            },
+            "links": {
+                "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&departureDate=2025-09-01&oneWay=false&nonStop=false&viewBy=DURATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=PAR&destinationLocationCode=NYC&departureDate=2025-09-01&returnDate=2025-09-03&adults=1&nonStop=false&viewBy=DURATION"
+            }
+        },
+        {
+            "type": "flight-date",
+            "origin": "PAR",
+            "destination": "NYC",
+            "departureDate": "2025-09-01",
+            "returnDate": "2025-09-04",
+            "price": {
+                "total": "723.25"
+            },
+            "links": {
+                "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&departureDate=2025-09-01&oneWay=false&nonStop=false&viewBy=DURATION",
+                "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=PAR&destinationLocationCode=NYC&departureDate=2025-09-01&returnDate=2025-09-04&adults=1&nonStop=false&viewBy=DURATION"
+            }
+        }
+    ],
+    "dictionaries": {
+        "currencies": {
+            "EUR": "Euro"
+        },
+        "locations": {
+            "PAR": {
+                "subType": "AIRPORT",
+                "detailedName": null
+            },
+            "NYC": {
+                "subType": "AIRPORT",
+                "detailedName": null
+            }
+        }
+    },
+    "meta": {
+        "currency": "EUR",
+        "links": {
+            "self": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=PAR&destination=NYC&departureDate=2025-09-01"
+        },
+        "defaults": {
+            "departureDate": "010925",
+            "oneWay": false,
+            "duration": "1,15",
+            "nonStop": false,
+            "viewBy": "DURATION"
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "hotel_gift_cards": [
+        {
+            "hotel_chain": "Marriott",
+            "denominations": [
+                25,
+                50,
+                100,
+                250,
+                500,
+                1000
+            ],
+            "currency": "USD",
+            "purchase_url": "https://www.marriott.com/loyalty/gift-cards.mi",
+            "terms": "No expiration date, cannot be redeemed for cash"
+        },
+        {
+            "hotel_chain": "Hilton",
+            "denominations": [
+                50,
+                100,
+                250,
+                500
+            ],
+            "currency": "USD",
+            "purchase_url": "https://www.hilton.com/en/hilton-honors/gift-cards/",
+            "terms": "Valid for 12 months from activation"
+        }
+    ]
+}
