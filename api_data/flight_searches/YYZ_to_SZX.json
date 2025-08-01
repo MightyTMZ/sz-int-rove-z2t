@@ -1,0 +1,756 @@
+{
+    "meta": {
+        "count": 2,
+        "links": {
+            "self": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=YYZ&destinationLocationCode=SZX&departureDate=2025-09-01&adults=1&currencyCode=USD&returnDate=2025-09-05&children=1"
+        }
+    },
+    "data": [
+        {
+            "type": "flight-offer",
+            "id": "1",
+            "source": "GDS",
+            "instantTicketingRequired": false,
+            "nonHomogeneous": false,
+            "oneWay": false,
+            "isUpsellOffer": false,
+            "lastTicketingDate": "2025-09-01",
+            "lastTicketingDateTime": "2025-09-01",
+            "numberOfBookableSeats": 9,
+            "itineraries": [
+                {
+                    "duration": "PT35H5M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "YYZ",
+                                "terminal": "3",
+                                "at": "2025-09-01T12:30:00"
+                            },
+                            "arrival": {
+                                "iataCode": "ICN",
+                                "terminal": "2",
+                                "at": "2025-09-02T16:30:00"
+                            },
+                            "carrierCode": "KE",
+                            "number": "74",
+                            "aircraft": {
+                                "code": "77W"
+                            },
+                            "operating": {
+                                "carrierCode": "KE"
+                            },
+                            "duration": "PT15H",
+                            "id": "1",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        },
+                        {
+                            "departure": {
+                                "iataCode": "ICN",
+                                "terminal": "2",
+                                "at": "2025-09-03T08:40:00"
+                            },
+                            "arrival": {
+                                "iataCode": "SZX",
+                                "at": "2025-09-03T11:35:00"
+                            },
+                            "carrierCode": "KE",
+                            "number": "827",
+                            "aircraft": {
+                                "code": "333"
+                            },
+                            "operating": {
+                                "carrierCode": "KE"
+                            },
+                            "duration": "PT3H55M",
+                            "id": "2",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                },
+                {
+                    "duration": "PT33H10M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "SZX",
+                                "at": "2025-09-05T12:45:00"
+                            },
+                            "arrival": {
+                                "iataCode": "ICN",
+                                "terminal": "2",
+                                "at": "2025-09-05T17:35:00"
+                            },
+                            "carrierCode": "KE",
+                            "number": "828",
+                            "aircraft": {
+                                "code": "333"
+                            },
+                            "operating": {
+                                "carrierCode": "KE"
+                            },
+                            "duration": "PT3H50M",
+                            "id": "5",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        },
+                        {
+                            "departure": {
+                                "iataCode": "ICN",
+                                "terminal": "2",
+                                "at": "2025-09-06T09:35:00"
+                            },
+                            "arrival": {
+                                "iataCode": "YYZ",
+                                "terminal": "3",
+                                "at": "2025-09-06T09:55:00"
+                            },
+                            "carrierCode": "KE",
+                            "number": "73",
+                            "aircraft": {
+                                "code": "77W"
+                            },
+                            "operating": {
+                                "carrierCode": "KE"
+                            },
+                            "duration": "PT13H20M",
+                            "id": "6",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                }
+            ],
+            "price": {
+                "currency": "USD",
+                "total": "2999.80",
+                "base": "2222.00",
+                "fees": [
+                    {
+                        "amount": "0.00",
+                        "type": "SUPPLIER"
+                    },
+                    {
+                        "amount": "0.00",
+                        "type": "TICKETING"
+                    }
+                ],
+                "grandTotal": "2999.80",
+                "additionalServices": [
+                    {
+                        "amount": "346.80",
+                        "type": "CHECKED_BAGS"
+                    }
+                ]
+            },
+            "pricingOptions": {
+                "fareType": [
+                    "PUBLISHED"
+                ],
+                "includedCheckedBagsOnly": false
+            },
+            "validatingAirlineCodes": [
+                "KE"
+            ],
+            "travelerPricings": [
+                {
+                    "travelerId": "1",
+                    "fareOption": "STANDARD",
+                    "travelerType": "ADULT",
+                    "price": {
+                        "currency": "USD",
+                        "total": "1665.20",
+                        "base": "1270.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "1",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ULX0ZRXK",
+                            "brandedFare": "EYSAVER",
+                            "brandedFareLabel": "ECONOMY SAVER",
+                            "class": "U",
+                            "includedCheckedBags": {
+                                "quantity": 1
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            },
+                            "amenities": [
+                                {
+                                    "description": "MEAL",
+                                    "isChargeable": false,
+                                    "amenityType": "MEAL",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "REFUNDABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "segmentId": "2",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ULX0ZRXK",
+                            "brandedFare": "EYSAVER",
+                            "brandedFareLabel": "ECONOMY SAVER",
+                            "class": "U",
+                            "includedCheckedBags": {
+                                "quantity": 1
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            },
+                            "amenities": [
+                                {
+                                    "description": "MEAL",
+                                    "isChargeable": false,
+                                    "amenityType": "MEAL",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "REFUNDABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "segmentId": "5",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ULW0ZRXK",
+                            "brandedFare": "EYSAVER",
+                            "brandedFareLabel": "ECONOMY SAVER",
+                            "class": "U",
+                            "includedCheckedBags": {
+                                "quantity": 1
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            },
+                            "amenities": [
+                                {
+                                    "description": "MEAL",
+                                    "isChargeable": false,
+                                    "amenityType": "MEAL",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "REFUNDABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "segmentId": "6",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ULW0ZRXK",
+                            "brandedFare": "EYSAVER",
+                            "brandedFareLabel": "ECONOMY SAVER",
+                            "class": "U",
+                            "includedCheckedBags": {
+                                "quantity": 1
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            },
+                            "amenities": [
+                                {
+                                    "description": "MEAL",
+                                    "isChargeable": false,
+                                    "amenityType": "MEAL",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "REFUNDABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "travelerId": "2",
+                    "fareOption": "STANDARD",
+                    "travelerType": "CHILD",
+                    "price": {
+                        "currency": "USD",
+                        "total": "1334.60",
+                        "base": "952.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "1",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ULX0ZRXK",
+                            "brandedFare": "EYSAVER",
+                            "brandedFareLabel": "ECONOMY SAVER",
+                            "class": "U",
+                            "amenities": [
+                                {
+                                    "description": "MEAL",
+                                    "isChargeable": false,
+                                    "amenityType": "MEAL",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "REFUNDABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "segmentId": "2",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ULX0ZRXK",
+                            "brandedFare": "EYSAVER",
+                            "brandedFareLabel": "ECONOMY SAVER",
+                            "class": "U",
+                            "amenities": [
+                                {
+                                    "description": "MEAL",
+                                    "isChargeable": false,
+                                    "amenityType": "MEAL",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "REFUNDABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "segmentId": "5",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ULW0ZRXK",
+                            "brandedFare": "EYSAVER",
+                            "brandedFareLabel": "ECONOMY SAVER",
+                            "class": "U",
+                            "amenities": [
+                                {
+                                    "description": "MEAL",
+                                    "isChargeable": false,
+                                    "amenityType": "MEAL",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "REFUNDABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "segmentId": "6",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ULW0ZRXK",
+                            "brandedFare": "EYSAVER",
+                            "brandedFareLabel": "ECONOMY SAVER",
+                            "class": "U",
+                            "amenities": [
+                                {
+                                    "description": "MEAL",
+                                    "isChargeable": false,
+                                    "amenityType": "MEAL",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "REFUNDABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "flight-offer",
+            "id": "2",
+            "source": "GDS",
+            "instantTicketingRequired": false,
+            "nonHomogeneous": false,
+            "oneWay": false,
+            "isUpsellOffer": false,
+            "lastTicketingDate": "2025-09-01",
+            "lastTicketingDateTime": "2025-09-01",
+            "numberOfBookableSeats": 9,
+            "itineraries": [
+                {
+                    "duration": "PT28H30M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "YYZ",
+                                "terminal": "1",
+                                "at": "2025-09-01T01:45:00"
+                            },
+                            "arrival": {
+                                "iataCode": "TPE",
+                                "terminal": "2",
+                                "at": "2025-09-02T05:00:00"
+                            },
+                            "carrierCode": "BR",
+                            "number": "35",
+                            "aircraft": {
+                                "code": "77W"
+                            },
+                            "operating": {
+                                "carrierCode": "BR"
+                            },
+                            "duration": "PT15H15M",
+                            "id": "3",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        },
+                        {
+                            "departure": {
+                                "iataCode": "TPE",
+                                "terminal": "2",
+                                "at": "2025-09-02T16:25:00"
+                            },
+                            "arrival": {
+                                "iataCode": "SZX",
+                                "at": "2025-09-02T18:15:00"
+                            },
+                            "carrierCode": "B7",
+                            "number": "187",
+                            "aircraft": {
+                                "code": "333"
+                            },
+                            "operating": {
+                                "carrierName": "EVA AIRWAYS FOR UNI AIRWAYS"
+                            },
+                            "duration": "PT1H50M",
+                            "id": "4",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                },
+                {
+                    "duration": "PT23H50M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "SZX",
+                                "at": "2025-09-05T09:30:00"
+                            },
+                            "arrival": {
+                                "iataCode": "TPE",
+                                "terminal": "2",
+                                "at": "2025-09-05T11:15:00"
+                            },
+                            "carrierCode": "CZ",
+                            "number": "3087",
+                            "aircraft": {
+                                "code": "330"
+                            },
+                            "operating": {
+                                "carrierCode": "CZ"
+                            },
+                            "duration": "PT1H45M",
+                            "id": "7",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        },
+                        {
+                            "departure": {
+                                "iataCode": "TPE",
+                                "terminal": "2",
+                                "at": "2025-09-05T19:20:00"
+                            },
+                            "arrival": {
+                                "iataCode": "YYZ",
+                                "terminal": "1",
+                                "at": "2025-09-05T21:20:00"
+                            },
+                            "carrierCode": "BR",
+                            "number": "36",
+                            "aircraft": {
+                                "code": "77W"
+                            },
+                            "operating": {
+                                "carrierCode": "BR"
+                            },
+                            "duration": "PT14H",
+                            "id": "8",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                }
+            ],
+            "price": {
+                "currency": "USD",
+                "total": "4830.40",
+                "base": "4148.00",
+                "fees": [
+                    {
+                        "amount": "0.00",
+                        "type": "SUPPLIER"
+                    },
+                    {
+                        "amount": "0.00",
+                        "type": "TICKETING"
+                    }
+                ],
+                "grandTotal": "4830.40"
+            },
+            "pricingOptions": {
+                "fareType": [
+                    "PUBLISHED"
+                ],
+                "includedCheckedBagsOnly": false
+            },
+            "validatingAirlineCodes": [
+                "BR"
+            ],
+            "travelerPricings": [
+                {
+                    "travelerId": "1",
+                    "fareOption": "STANDARD",
+                    "travelerType": "ADULT",
+                    "price": {
+                        "currency": "USD",
+                        "total": "2704.50",
+                        "base": "2357.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "3",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "SLXN",
+                            "class": "S",
+                            "includedCheckedBags": {
+                                "quantity": 2
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            }
+                        },
+                        {
+                            "segmentId": "4",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "SLXN",
+                            "class": "S",
+                            "includedCheckedBags": {
+                                "quantity": 2
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            }
+                        },
+                        {
+                            "segmentId": "7",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "YLWC",
+                            "class": "E",
+                            "includedCheckedBags": {
+                                "quantity": 2
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            }
+                        },
+                        {
+                            "segmentId": "8",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "YLWC",
+                            "class": "Y",
+                            "includedCheckedBags": {
+                                "quantity": 2
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "travelerId": "2",
+                    "fareOption": "STANDARD",
+                    "travelerType": "CHILD",
+                    "price": {
+                        "currency": "USD",
+                        "total": "2125.90",
+                        "base": "1791.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "3",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "SLXN",
+                            "class": "S"
+                        },
+                        {
+                            "segmentId": "4",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "SLXN",
+                            "class": "S"
+                        },
+                        {
+                            "segmentId": "7",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "YLWC",
+                            "class": "E"
+                        },
+                        {
+                            "segmentId": "8",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "YLWC",
+                            "class": "Y"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "dictionaries": {
+        "locations": {
+            "SZX": {
+                "cityCode": "SZX",
+                "countryCode": "CN"
+            },
+            "ICN": {
+                "cityCode": "SEL",
+                "countryCode": "KR"
+            },
+            "TPE": {
+                "cityCode": "TPE",
+                "countryCode": "TW"
+            },
+            "YYZ": {
+                "cityCode": "YTO",
+                "countryCode": "CA"
+            }
+        },
+        "aircraft": {
+            "330": "AIRBUS INDUSTRIE A330",
+            "333": "AIRBUS A330-300",
+            "77W": "BOEING 777-300ER"
+        },
+        "currencies": {
+            "USD": "US DOLLAR"
+        },
+        "carriers": {
+            "BR": "EVA AIR",
+            "B7": "UNI AIRWAYS",
+            "CZ": "CHINA SOUTHERN AIRLINES",
+            "KE": "KOREAN AIR"
+        }
+    }
+}
