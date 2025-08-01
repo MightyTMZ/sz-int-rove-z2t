@@ -64,6 +64,8 @@ if __name__ == "__main__":
 
     origin_airport_code = input("ORIGIN AIRPORT: ")
     destination_airport_code = input("DESTINATION AIRPORT: ")
+    number_of_adults = int(input("Enter the number of adults: "))
+    number_of_children = int(input("Enter the number of children: "))
     
     # Example 1: Search for specific route flights
     flight_offers = search_flight_offers(
@@ -71,8 +73,8 @@ if __name__ == "__main__":
         destination=destination_airport_code, 
         departure_date='2025-09-01',
         return_date='2025-09-05',
-        adults=1,
-        children=1
+        adults=number_of_adults,
+        children=number_of_children
     )
     
     with open(f"api_data/flight_searches/{origin_airport_code}_to_{destination_airport_code}.json", "w", encoding="utf-8") as f:
@@ -95,12 +97,12 @@ import json
 filename = "api_data/flight_searches/{origin_airport_code}_to_{destination_airport_code}.json"
 
 print("{origin_airport_code} to {destination_airport_code}")
+print("For {number_of_adults} adults and {number_of_children} children")
 print("------------------------------------------------------------------\\n")
 
 with open(filename) as file:
     data = json.load(file) # loads entire JSON object in the file
 
-    # Entire document looks like it is resembling a round trip
     
     flight_offers = data['data']
 
