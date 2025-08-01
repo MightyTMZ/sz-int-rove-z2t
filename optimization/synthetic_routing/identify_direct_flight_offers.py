@@ -11,16 +11,18 @@ with open('api_data.json') as file:
 
     # print(flight_offers)
 
-    layover_flights = []
+    direct_flights = []
 
     for x in range(len(flight_offers)):
 
         flight = flight_offers[x]
 
-        if len(flight['itineraries']) == 1: # only 1 thing in the list of itinararies
-            layover_flights.append(flight)
-    
-    print("Total direct flights:", len(layover_flights))
+        total_flights = len(flight['itineraries'][0]['segments']) 
+
+        if total_flights == 1: 
+            direct_flights.append(flight)
+
+    print("Total direct flights:", len(direct_flights))
 
 
 # ran it and it 
