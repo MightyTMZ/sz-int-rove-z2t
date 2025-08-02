@@ -66,13 +66,15 @@ if __name__ == "__main__":
     destination_airport_code = input("DESTINATION AIRPORT: ")
     number_of_adults = int(input("Enter the number of adults: "))
     number_of_children = int(input("Enter the number of children: "))
+    departure_date = input('(yyyy-mm-dd) Enter departure date: ')
+    return_date = input('(yyyy-mm-dd) Enter return date: ')
     
     # Example 1: Search for specific route flights
     flight_offers = search_flight_offers(
         origin=origin_airport_code,
         destination=destination_airport_code, 
-        departure_date='2025-09-01',
-        return_date='2025-09-05',
+        departure_date=departure_date,
+        return_date=return_date,
         adults=number_of_adults,
         children=number_of_children
     )
@@ -98,6 +100,7 @@ filename = "api_data/flight_searches/{origin_airport_code}_to_{destination_airpo
 
 print("{origin_airport_code} to {destination_airport_code}")
 print("For {number_of_adults} adults and {number_of_children} children")
+print("From {departure_date} to {return_date}")
 print("------------------------------------------------------------------\\n")
 
 with open(filename) as file:
