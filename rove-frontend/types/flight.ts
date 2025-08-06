@@ -16,7 +16,7 @@ interface FlightOfferDateEntry {
   data: FlightOffer[];
 }
 
-interface FlightOffer {
+export interface FlightOffer {
   type: string;
   id: number;
   source: string;
@@ -82,12 +82,12 @@ interface Fee {
   type: string;
 }
 
-interface Itinerary {
+export interface Itinerary {
   duration: string;
   segments: Segment[];
 }
 
-interface Segment {
+export interface Segment {
   departure: {
     iataCode: string;
     terminal: string;
