@@ -14,7 +14,7 @@ interface Meta {
   };
 }
 
-interface FlightOfferDateEntry {
+export interface FlightOfferDateEntry {
   meta: Meta;
   data: FlightOffer[];
 }

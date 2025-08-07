@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FlightOffer, FlightOfferList } from '@/types/flight';
+import { FlightOffer, FlightOfferDateEntry } from '@/types/flight';
 import FlightSearch, { SearchParams, FilterOptions } from '@/components/flight-search';
 import FlightCard from '@/components/flight-card';
 import FlightDetails from '@/components/flight-details';
@@ -46,24 +46,13 @@ async function searchFlights(searchParams: SearchParams): Promise<FlightOffer[]>
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data: FlightOfferList = await response.json();
-    console.log('Received flight data:', data);
+    const flightData: FlightOfferDateEntry = await response.json();
+    console.log('Received flight data:', flightData);
     
-    // Convert FlightOfferList to FlightOffer[]
-    const flights: FlightOffer[] = [];
+    const flightOffers = flightData.data;
     
-    // Iterate through the FlightOfferList structure
-    for (const route in data) {
-      const routeData = data[route];
-      for (const date in routeData) {
-        const dateData = routeData[date];
-        if (dateData.data && Array.isArray(dateData.data)) {
-          flights.push(...dateData.data);
-        }
-      }
-    }
-    
-    console.log('Converted flights:', flights.length);
+    const flights: FlightOffer[] = flightOffers;    
+
     return flights;
   } catch (error) {
     console.error('Error searching flights:', error);
