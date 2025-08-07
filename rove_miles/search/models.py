@@ -15,6 +15,7 @@ class FlightSearch(models.Model):
     destination_airport = models.CharField(max_length=255)
     departure_date = models.DateField(null=True, blank=True)
     return_date = models.DateField(null=True, blank=True)
+    currency = models.CharField(max_length=255, default="USD")
     number_of_adults = models.PositiveSmallIntegerField(default=1)
     number_of_children = models.PositiveSmallIntegerField(default=0)
     number_of_infants_in_seat = models.PositiveSmallIntegerField(default=0)
