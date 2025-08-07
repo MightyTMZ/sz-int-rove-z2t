@@ -279,7 +279,7 @@ export default function Home() {
           </div>
 
           {/* Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <Card className="p-6 bg-card border-border text-center">
               <Star className="h-8 w-8 text-yellow-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-foreground mb-2">Best Prices</h3>
@@ -303,7 +303,7 @@ export default function Home() {
                 Book with confidence using our secure platform and flexible cancellation.
               </p>
             </Card>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
