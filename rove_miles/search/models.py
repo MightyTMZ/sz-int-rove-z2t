@@ -24,7 +24,7 @@ class FlightSearch(models.Model):
 
     device = models.GenericIPAddressField()
 
-    search_results = models.JSONField()
+    search_results = models.JSONField(null=True, blank=True)
 
     status = models.CharField(
         max_length=10,
