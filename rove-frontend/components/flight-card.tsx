@@ -102,7 +102,7 @@ export default function FlightCard({ flight, onSelect }: FlightCardProps) {
             <div className="text-3xl font-bold text-foreground">
               {flight.price.currency} {flight.price.total}
             </div>
-            <div className="text-sm text-muted-foreground">per person</div>
+            <div className="text-sm text-muted-foreground">total price</div>
           </div>
           
           <Button 
