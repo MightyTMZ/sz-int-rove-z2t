@@ -36,6 +36,8 @@ class FlightSearchViewset(viewsets.ModelViewSet):
 
 @api_view(["POST"])
 def create_new_flight_search(request):
+    print(request.data)
+
     _origin_airport = request.data.get("origin_airport")
     _destination_airport = request.data.get("destination_airport")
     _departure_date = request.data.get("departure_date")
@@ -91,6 +93,7 @@ def create_new_flight_search(request):
             traveler_class=_cabin_class,
         )
 
+    print(response.status_code)
     if response.status_code == 200:
         new_flight_search.status = "SUCCESS"
         new_flight_search.search_results = response.json()
@@ -99,5 +102,7 @@ def create_new_flight_search(request):
         new_flight_search.status = "FAIL"
 
     new_flight_search.save()
+
+    print(str(response.json())[:1000])
 
     return Response(response.json())  # back to the client application

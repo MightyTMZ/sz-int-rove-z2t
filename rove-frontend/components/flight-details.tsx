@@ -46,17 +46,17 @@ export default function FlightDetails({ flight, onBack, onBook }: FlightDetailsP
           <div className="flex-1">
             <div className="flex items-center space-x-4 mb-3">
               <div className="text-center">
-                <div className="text-xl font-bold text-white">
+                <div className="text-xl font-bold text-foreground">
                   {formatTime(segment.departure.at)}
                 </div>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-muted-foreground">
                   {formatDate(segment.departure.at)}
                 </div>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-muted-foreground">
                   {segment.departure.iataCode}
                 </div>
                 {segment.departure.terminal && (
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-muted-foreground">
                     Terminal {segment.departure.terminal}
                   </div>
                 )}
@@ -65,31 +65,31 @@ export default function FlightDetails({ flight, onBack, onBook }: FlightDetailsP
               <div className="flex-1 flex flex-col items-center px-6">
                 <div className="flex items-center space-x-2 mb-2">
                   <Plane className="h-4 w-4 text-blue-400" />
-                  <span className="text-sm text-gray-300">
+                  <span className="text-sm text-muted-foreground">
                     {segment.carrierCode} {segment.number}
                   </span>
                 </div>
-                <div className="text-xs text-gray-400 mb-2">
+                <div className="text-xs text-muted-foreground mb-2">
                   {formatDuration(segment.duration)}
                 </div>
-                <div className="w-full h-px bg-gray-600"></div>
-                <div className="text-xs text-gray-500 mt-2">
+                <div className="w-full h-px bg-border"></div>
+                <div className="text-xs text-muted-foreground mt-2">
                   {segment.aircraft.code}
                 </div>
               </div>
 
               <div className="text-center">
-                <div className="text-xl font-bold text-white">
+                <div className="text-xl font-bold text-foreground">
                   {formatTime(segment.arrival.at)}
                 </div>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-muted-foreground">
                   {formatDate(segment.arrival.at)}
                 </div>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-muted-foreground">
                   {segment.arrival.iataCode}
                 </div>
                 {segment.arrival.terminal && (
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-muted-foreground">
                     Terminal {segment.arrival.terminal}
                   </div>
                 )}
@@ -100,7 +100,7 @@ export default function FlightDetails({ flight, onBack, onBook }: FlightDetailsP
 
         {!isLast && (
           <div className="flex items-center justify-center py-4">
-            <div className="flex items-center space-x-2 text-sm text-gray-400">
+            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <Clock className="h-4 w-4" />
               <span>Layover</span>
             </div>
@@ -120,29 +120,29 @@ export default function FlightDetails({ flight, onBack, onBook }: FlightDetailsP
         <Button
           variant="ghost"
           onClick={onBack}
-          className="text-gray-400 hover:text-white hover:bg-gray-800"
+          className="text-muted-foreground hover:text-foreground hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Results
         </Button>
-        <Badge variant="secondary" className="bg-gray-700 text-gray-300">
+        <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
           Flight ID: {flight.id}
         </Badge>
       </div>
 
       {/* Flight Details */}
-      <Card className="p-6 bg-gray-900 border-gray-700">
-        <h2 className="text-2xl font-bold text-white mb-6">Flight Details</h2>
+      <Card className="p-6 bg-card border-border">
+        <h2 className="text-2xl font-bold text-foreground mb-6">Flight Details</h2>
         
         {flight.itineraries.map((itinerary, itineraryIndex) => (
           <div key={itineraryIndex} className="space-y-6">
-            {itineraryIndex > 0 && <Separator className="bg-gray-700 my-8" />}
+            {itineraryIndex > 0 && <Separator className="bg-border my-8" />}
             
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-white">
+              <h3 className="text-lg font-semibold text-foreground">
                 {flight.oneWay ? 'Outbound' : itineraryIndex === 0 ? 'Outbound' : 'Return'}
               </h3>
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-muted-foreground">
                 Total Duration: {formatDuration(itinerary.duration)}
               </span>
             </div>
@@ -156,56 +156,56 @@ export default function FlightDetails({ flight, onBack, onBook }: FlightDetailsP
 
       {/* Fare Information */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-6 bg-gray-900 border-gray-700">
-          <h3 className="text-lg font-semibold text-white mb-4">Fare Details</h3>
+        <Card className="p-6 bg-card border-border">
+          <h3 className="text-lg font-semibold text-foreground mb-4">Fare Details</h3>
           <div className="space-y-3">
             {fareDetails && (
               <>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Cabin Class</span>
-                  <span className="text-white">{fareDetails.cabin}</span>
+                  <span className="text-muted-foreground">Cabin Class</span>
+                  <span className="text-foreground">{fareDetails.cabin}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Fare Basis</span>
-                  <span className="text-white">{fareDetails.fareBasis}</span>
+                  <span className="text-muted-foreground">Fare Basis</span>
+                  <span className="text-foreground">{fareDetails.fareBasis}</span>
                 </div>
                 {fareDetails.brandedFareLabel && (
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Fare Type</span>
-                    <span className="text-white">{fareDetails.brandedFareLabel}</span>
+                    <span className="text-muted-foreground">Fare Type</span>
+                    <span className="text-foreground">{fareDetails.brandedFareLabel}</span>
                   </div>
                 )}
               </>
             )}
-            <Separator className="bg-gray-700" />
+            <Separator className="bg-border" />
             <div className="flex justify-between">
-              <span className="text-gray-400">Base Fare</span>
-              <span className="text-white">{flight.price.currency} {flight.price.base}</span>
+              <span className="text-muted-foreground">Base Fare</span>
+              <span className="text-foreground">{flight.price.currency} {flight.price.base}</span>
             </div>
             {flight.price.fees.map((fee, index) => (
               <div key={index} className="flex justify-between">
-                <span className="text-gray-400">{fee.type}</span>
-                <span className="text-white">{flight.price.currency} {fee.amount}</span>
+                <span className="text-muted-foreground">{fee.type}</span>
+                <span className="text-foreground">{flight.price.currency} {fee.amount}</span>
               </div>
             ))}
-            <Separator className="bg-gray-700" />
+            <Separator className="bg-border" />
             <div className="flex justify-between font-semibold">
-              <span className="text-white">Total</span>
-              <span className="text-white">{flight.price.currency} {flight.price.total}</span>
+              <span className="text-foreground">Total</span>
+              <span className="text-foreground">{flight.price.currency} {flight.price.total}</span>
             </div>
           </div>
         </Card>
 
-        <Card className="p-6 bg-gray-900 border-gray-700">
-          <h3 className="text-lg font-semibold text-white mb-4">Included Services</h3>
+        <Card className="p-6 bg-card border-border">
+          <h3 className="text-lg font-semibold text-foreground mb-4">Included Services</h3>
           <div className="space-y-3">
             {fareDetails && (
               <>
                 <div className="flex items-center space-x-3">
                   <Luggage className="h-4 w-4 text-blue-400" />
                   <div>
-                    <span className="text-white">Checked Baggage</span>
-                    <div className="text-sm text-gray-400">
+                    <span className="text-foreground">Checked Baggage</span>
+                    <div className="text-sm text-muted-foreground">
                       {fareDetails.includedCheckedBags.quantity} piece(s)
                     </div>
                   </div>
@@ -214,8 +214,8 @@ export default function FlightDetails({ flight, onBack, onBook }: FlightDetailsP
                 <div className="flex items-center space-x-3">
                   <Luggage className="h-4 w-4 text-blue-400" />
                   <div>
-                    <span className="text-white">Cabin Baggage</span>
-                    <div className="text-sm text-gray-400">
+                    <span className="text-foreground">Cabin Baggage</span>
+                    <div className="text-sm text-muted-foreground">
                       {fareDetails.includedCabinBags.quantity} piece(s)
                     </div>
                   </div>
@@ -225,8 +225,8 @@ export default function FlightDetails({ flight, onBack, onBook }: FlightDetailsP
                   <div key={index} className="flex items-center space-x-3">
                     <Utensils className="h-4 w-4 text-blue-400" />
                     <div>
-                      <span className="text-white">{amenity.amenityType}</span>
-                      <div className="text-sm text-gray-400">
+                      <span className="text-foreground">{amenity.amenityType}</span>
+                      <div className="text-sm text-muted-foreground">
                         {amenity.description}
                       </div>
                     </div>
@@ -239,11 +239,11 @@ export default function FlightDetails({ flight, onBack, onBook }: FlightDetailsP
       </div>
 
       {/* Book Button */}
-      <Card className="p-6 bg-gray-900 border-gray-700">
+      <Card className="p-6 bg-card border-border">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-xl font-bold text-white">Ready to book?</h3>
-            <p className="text-gray-400">Complete your reservation for this flight</p>
+            <h3 className="text-xl font-bold text-foreground">Ready to book?</h3>
+            <p className="text-muted-foreground">Complete your reservation for this flight</p>
           </div>
           <Button
             onClick={() => onBook(flight)}

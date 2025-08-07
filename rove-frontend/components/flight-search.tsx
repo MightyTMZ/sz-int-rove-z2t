@@ -4,12 +4,15 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { Calendar, MapPin, Users, ArrowLeftRight, Filter } from 'lucide-react';
+import { Calendar, MapPin, Users, ArrowLeftRight, Filter, Loader2 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
+import { CabinClass } from '@/types/flight';
+import { inOneMonth, threeDaysLater } from './next-date';
 
 interface FlightSearchProps {
   onSearch: (searchParams: SearchParams, filters: FilterOptions) => void;
+  isLoading?: boolean;
 }
 
 export interface SearchParams {
@@ -20,39 +23,37 @@ export interface SearchParams {
   adults: number;
   children: number;
   tripType: 'oneway' | 'roundtrip';
+  cabinClass: CabinClass;
 }
 
 export interface FilterOptions {
-  priceRange: {
-    min: number;
-    max: number;
-  };
+  maxPrice: number | null; // null means no limit
   sortBy: 'price-low' | 'price-high' | 'duration' | 'departure';
 }
 
-export default function FlightSearch({ onSearch }: FlightSearchProps) {
+export default function FlightSearch({ onSearch, isLoading = false }: FlightSearchProps) {
   const [searchParams, setSearchParams] = useState<SearchParams>({
     from: 'JFK',
     to: 'LAX',
-    departDate: '2024-03-15',
-    returnDate: '2024-03-22',
+    departDate: inOneMonth,
+    returnDate: threeDaysLater,
     adults: 1,
     children: 0,
-    tripType: 'roundtrip'
+    tripType: 'roundtrip',
+    cabinClass: 'ECONOMY'
   });
 
   const [filters, setFilters] = useState<FilterOptions>({
-    priceRange: {
-      min: 0,
-      max: 2000
-    },
+    maxPrice: null,
     sortBy: 'price-low'
   });
 
   const [showFilters, setShowFilters] = useState(false);
 
   const handleSearch = () => {
-    onSearch(searchParams, filters);
+    if (!isLoading) {
+      onSearch(searchParams, filters);
+    }
   };
 
   const swapAirports = () => {
@@ -63,9 +64,17 @@ export default function FlightSearch({ onSearch }: FlightSearchProps) {
     }));
   };
 
+  // Cabin class options with friendly display names
+  const cabinClassOptions = [
+    { value: 'ECONOMY' as CabinClass, label: 'Economy' },
+    { value: 'PREMIUM_ECONOMY' as CabinClass, label: 'Premium Economy' },
+    { value: 'BUSINESS' as CabinClass, label: 'Business' },
+    { value: 'FIRST' as CabinClass, label: 'First Class' }
+  ];
+
   return (
     <div className="space-y-4">
-      <Card className="p-8 bg-gray-900 border-gray-700">
+      <Card className="p-8 bg-card border-border">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {/* Trip Type */}
         <div className="col-span-full">
@@ -73,14 +82,14 @@ export default function FlightSearch({ onSearch }: FlightSearchProps) {
             <Button
               variant={searchParams.tripType === 'roundtrip' ? 'default' : 'outline'}
               onClick={() => setSearchParams(prev => ({ ...prev, tripType: 'roundtrip' }))}
-              className="bg-blue-600 hover:bg-blue-700 text-white border-gray-600"
+              className="bg-blue-600 hover:bg-blue-700 text-white border-border"
             >
               Round Trip
             </Button>
             <Button
               variant={searchParams.tripType === 'oneway' ? 'default' : 'outline'}
-              onClick={() => setSearchParams(prev => ({ ...prev, tripType: 'oneway' }))}
-              className="bg-blue-600 hover:bg-blue-700 text-white border-gray-600"
+              onClick={() => setSearchParams(prev => ({ ...prev, tripType: 'oneway', returnDate: undefined }))}
+              className="bg-blue-600 hover:bg-blue-700 text-white border-border"
             >
               One Way
             </Button>
@@ -90,13 +99,13 @@ export default function FlightSearch({ onSearch }: FlightSearchProps) {
         {/* From/To */}
         <div className="col-span-full lg:col-span-2 flex items-center space-x-2">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-300 mb-2">From</label>
+            <label className="block text-sm font-medium text-foreground mb-2">From</label>
             <div className="relative">
-              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 value={searchParams.from}
                 onChange={(e) => setSearchParams(prev => ({ ...prev, from: e.target.value }))}
-                className="pl-10 bg-gray-800 border-gray-600 text-white placeholder-gray-400"
+                className="pl-10 bg-background border-border text-foreground placeholder:text-muted-foreground"
                 placeholder="JFK"
               />
             </div>
@@ -106,19 +115,19 @@ export default function FlightSearch({ onSearch }: FlightSearchProps) {
             variant="ghost"
             size="icon"
             onClick={swapAirports}
-            className="mt-7 hover:bg-gray-700 text-gray-400"
+            className="mt-7 hover:bg-accent text-muted-foreground"
           >
             <ArrowLeftRight className="h-4 w-4" />
           </Button>
           
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-300 mb-2">To</label>
+            <label className="block text-sm font-medium text-foreground mb-2">To</label>
             <div className="relative">
-              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 value={searchParams.to}
                 onChange={(e) => setSearchParams(prev => ({ ...prev, to: e.target.value }))}
-                className="pl-10 bg-gray-800 border-gray-600 text-white placeholder-gray-400"
+                className="pl-10 bg-background border-border text-foreground placeholder:text-muted-foreground"
                 placeholder="LAX"
               />
             </div>
@@ -127,14 +136,14 @@ export default function FlightSearch({ onSearch }: FlightSearchProps) {
 
         {/* Departure Date */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">Departure</label>
+          <label className="block text-sm font-medium text-foreground mb-2">Departure</label>
           <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               type="date"
               value={searchParams.departDate}
               onChange={(e) => setSearchParams(prev => ({ ...prev, departDate: e.target.value }))}
-              className="pl-10 bg-gray-800 border-gray-600 text-white"
+              className="pl-10 bg-background border-border text-foreground"
             />
           </div>
         </div>
@@ -142,48 +151,72 @@ export default function FlightSearch({ onSearch }: FlightSearchProps) {
         {/* Return Date */}
         {searchParams.tripType === 'roundtrip' && (
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">Return</label>
+            <label className="block text-sm font-medium text-foreground mb-2">Return</label>
             <div className="relative">
-              <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 type="date"
                 value={searchParams.returnDate || ''}
                 onChange={(e) => setSearchParams(prev => ({ ...prev, returnDate: e.target.value }))}
-                className="pl-10 bg-gray-800 border-gray-600 text-white"
+                className="pl-10 bg-background border-border text-foreground"
               />
             </div>
           </div>
         )}
 
+        {/* Cabin Class */}
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-2">Cabin Class</label>
+          <Select
+            value={searchParams.cabinClass}
+            onValueChange={(value: CabinClass) => setSearchParams(prev => ({ ...prev, cabinClass: value }))}
+          >
+            <SelectTrigger className="bg-background border-border text-foreground">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-background border-border">
+              {cabinClassOptions.map((option) => (
+                <SelectItem 
+                  key={option.value} 
+                  value={option.value} 
+                  className="text-foreground hover:bg-accent"
+                >
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* Passengers */}
         <div className="col-span-full lg:col-span-2">
-          <label className="block text-sm font-medium text-gray-300 mb-2">Passengers</label>
+          <label className="block text-sm font-medium text-foreground mb-2">Passengers</label>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs text-gray-400 mb-1">Adults (18+)</label>
+              <label className="block text-xs text-muted-foreground mb-1">Adults (18+)</label>
               <div className="relative">
-                <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
                   type="number"
                   min="1"
                   max="9"
                   value={searchParams.adults}
                   onChange={(e) => setSearchParams(prev => ({ ...prev, adults: parseInt(e.target.value) || 1 }))}
-                  className="pl-10 bg-gray-800 border-gray-600 text-white"
+                  className="pl-10 bg-background border-border text-foreground"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs text-gray-400 mb-1">Children (2-17)</label>
+              <label className="block text-xs text-muted-foreground mb-1">Children (2-17)</label>
               <div className="relative">
-                <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
                   type="number"
                   min="0"
                   max="8"
                   value={searchParams.children}
                   onChange={(e) => setSearchParams(prev => ({ ...prev, children: parseInt(e.target.value) || 0 }))}
-                  className="pl-10 bg-gray-800 border-gray-600 text-white"
+                  className="pl-10 bg-background border-border text-foreground"
                 />
               </div>
             </div>
@@ -196,13 +229,21 @@ export default function FlightSearch({ onSearch }: FlightSearchProps) {
           onClick={handleSearch}
           className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3"
           size="lg"
+          disabled={isLoading}
         >
-          Search Flights
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Searching...
+            </>
+          ) : (
+            'Search Flights'
+          )}
         </Button>
         <Button
           variant="outline"
           onClick={() => setShowFilters(!showFilters)}
-          className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
+          className="border-border text-foreground hover:bg-accent hover:text-accent-foreground"
           size="lg"
         >
           <Filter className="h-4 w-4 mr-2" />
@@ -213,99 +254,100 @@ export default function FlightSearch({ onSearch }: FlightSearchProps) {
 
     {/* Filters Panel */}
     {showFilters && (
-      <Card className="p-6 bg-gray-900 border-gray-700">
-        <h3 className="text-lg font-semibold text-white mb-4">Filters & Sorting</h3>
+      <Card className="p-6 bg-card border-border">
+        <h3 className="text-lg font-semibold text-foreground mb-4">Filters & Sorting</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Price Range */}
+          {/* Maximum Price */}
           <div>
-            <Label className="text-sm font-medium text-gray-300 mb-3 block">Price Range (USD)</Label>
+            <Label className="text-sm font-medium text-foreground mb-3 block">Maximum Price (USD)</Label>
             <div className="space-y-3">
               <div>
-                <Label className="text-xs text-gray-400 mb-1 block">Minimum</Label>
                 <Input
                   type="number"
                   min="0"
-                  value={filters.priceRange.min}
+                  value={filters.maxPrice || ''}
                   onChange={(e) => setFilters(prev => ({
                     ...prev,
-                    priceRange: { ...prev.priceRange, min: parseInt(e.target.value) || 0 }
+                    maxPrice: e.target.value ? parseInt(e.target.value) : null
                   }))}
-                  className="bg-gray-800 border-gray-600 text-white"
-                  placeholder="0"
+                  className="bg-background border-border text-foreground"
+                  placeholder="No limit"
                 />
               </div>
-              <div>
-                <Label className="text-xs text-gray-400 mb-1 block">Maximum</Label>
-                <Input
-                  type="number"
-                  min="0"
-                  value={filters.priceRange.max}
-                  onChange={(e) => setFilters(prev => ({
-                    ...prev,
-                    priceRange: { ...prev.priceRange, max: parseInt(e.target.value) || 2000 }
-                  }))}
-                  className="bg-gray-800 border-gray-600 text-white"
-                  placeholder="2000"
-                />
-              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setFilters(prev => ({ ...prev, maxPrice: null }))}
+                className="w-full justify-start border-border text-foreground hover:bg-accent hover:text-accent-foreground"
+              >
+                Clear Price Limit
+              </Button>
             </div>
+          </div>
           {/* Sort By */}
           <div>
-            <Label className="text-sm font-medium text-gray-300 mb-3 block">Sort By</Label>
+            <Label className="text-sm font-medium text-foreground mb-3 block">Sort By</Label>
             <Select
               value={filters.sortBy}
               onValueChange={(value: 'price-low' | 'price-high' | 'duration' | 'departure') => 
                 setFilters(prev => ({ ...prev, sortBy: value }))
               }
             >
-              <SelectTrigger className="bg-gray-800 border-gray-600 text-white">
+              <SelectTrigger className="bg-background border-border text-foreground">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-600">
-                <SelectItem value="price-low" className="text-white hover:bg-gray-700">
+              <SelectContent className="bg-background border-border">
+                <SelectItem value="price-low" className="text-foreground hover:bg-accent">
                   Price: Low to High
                 </SelectItem>
-                <SelectItem value="price-high" className="text-white hover:bg-gray-700">
+                <SelectItem value="price-high" className="text-foreground hover:bg-accent">
                   Price: High to Low
                 </SelectItem>
-                <SelectItem value="duration" className="text-white hover:bg-gray-700">
+                <SelectItem value="duration" className="text-foreground hover:bg-accent">
                   Duration: Shortest First
                 </SelectItem>
-                <SelectItem value="departure" className="text-white hover:bg-gray-700">
+                <SelectItem value="departure" className="text-foreground hover:bg-accent">
                   Departure Time: Earliest First
                 </SelectItem>
               </SelectContent>
             </Select>
           </div>
-          </div>
           {/* Quick Price Filters */}
           <div>
-            <Label className="text-sm font-medium text-gray-300 mb-3 block">Quick Filters</Label>
+            <Label className="text-sm font-medium text-foreground mb-3 block">Quick Filters</Label>
             <div className="space-y-2">
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setFilters(prev => ({ ...prev, priceRange: { min: 0, max: 200 } }))}
-                className="w-full justify-start border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
+                onClick={() => setFilters(prev => ({ ...prev, maxPrice: null }))}
+                className="w-full justify-start border-border text-foreground hover:bg-accent hover:text-accent-foreground"
+              >
+                No Price Limit
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setFilters(prev => ({ ...prev, maxPrice: 200 }))}
+                className="w-full justify-start border-border text-foreground hover:bg-accent hover:text-accent-foreground"
               >
                 Under $200
               </Button>
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setFilters(prev => ({ ...prev, priceRange: { min: 200, max: 500 } }))}
-                className="w-full justify-start border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
+                onClick={() => setFilters(prev => ({ ...prev, maxPrice: 500 }))}
+                className="w-full justify-start border-border text-foreground hover:bg-accent hover:text-accent-foreground"
               >
-                $200 - $500
+                Under $500
               </Button>
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setFilters(prev => ({ ...prev, priceRange: { min: 500, max: 2000 } }))}
-                className="w-full justify-start border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
+                onClick={() => setFilters(prev => ({ ...prev, maxPrice: 1000 }))}
+                className="w-full justify-start border-border text-foreground hover:bg-accent hover:text-accent-foreground"
               >
-                $500+
+                Under $1,000
               </Button>
             </div>
           </div>

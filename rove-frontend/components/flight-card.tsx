@@ -41,29 +41,29 @@ export default function FlightCard({ flight, onSelect }: FlightCardProps) {
   };
 
   return (
-    <Card className="p-6 bg-gray-900 border-gray-700 hover:bg-gray-800 transition-colors">
+    <Card className="p-6 bg-card border-border hover:bg-accent/50 transition-colors">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         {/* Flight Info */}
         <div className="flex-1">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-white">
+                <div className="text-2xl font-bold text-foreground">
                   {formatTime(firstSegment.departure.at)}
                 </div>
-                <div className="text-sm text-gray-400">{firstSegment.departure.iataCode}</div>
+                <div className="text-sm text-muted-foreground">{firstSegment.departure.iataCode}</div>
               </div>
               
               <div className="flex-1 flex flex-col items-center px-4">
                 <div className="flex items-center space-x-2 mb-1">
-                  <Plane className="h-4 w-4 text-gray-400" />
-                  <span className="text-sm text-gray-400">
+                  <Plane className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">
                     {formatDuration(itinerary.duration)}
                   </span>
                 </div>
-                <div className="w-full h-px bg-gray-600 relative">
+                <div className="w-full h-px bg-border relative">
                   <div className="absolute inset-0 flex justify-center">
-                    <span className="bg-gray-900 px-2 text-xs text-gray-400">
+                    <span className="bg-card px-2 text-xs text-muted-foreground">
                       {getStopsText()}
                     </span>
                   </div>
@@ -71,23 +71,23 @@ export default function FlightCard({ flight, onSelect }: FlightCardProps) {
               </div>
               
               <div className="text-center">
-                <div className="text-2xl font-bold text-white">
+                <div className="text-2xl font-bold text-foreground">
                   {formatTime(lastSegment.arrival.at)}
                 </div>
-                <div className="text-sm text-gray-400">{lastSegment.arrival.iataCode}</div>
+                <div className="text-sm text-muted-foreground">{lastSegment.arrival.iataCode}</div>
               </div>
             </div>
           </div>
 
           {/* Airline Info */}
-          <div className="flex items-center space-x-4 text-sm text-gray-400">
+          <div className="flex items-center space-x-4 text-sm text-muted-foreground">
             <span>{flight.validatingAirlineCodes[0]}</span>
             <span>•</span>
             <span>{itinerary.segments.length > 1 ? `${itinerary.segments.length} segments` : 'Direct flight'}</span>
             {flight.pricingOptions.fareType.length > 0 && (
               <>
                 <span>•</span>
-                <Badge variant="secondary" className="bg-gray-700 text-gray-300">
+                <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
                   {flight.pricingOptions.fareType[0]}
                 </Badge>
               </>
@@ -98,11 +98,11 @@ export default function FlightCard({ flight, onSelect }: FlightCardProps) {
         {/* Price & Select */}
         <div className="text-right">
           <div className="mb-2">
-            <span className="text-sm text-gray-400">from</span>
-            <div className="text-3xl font-bold text-white">
+            <span className="text-sm text-muted-foreground">from</span>
+            <div className="text-3xl font-bold text-foreground">
               {flight.price.currency} {flight.price.total}
             </div>
-            <div className="text-sm text-gray-400">per person</div>
+            <div className="text-sm text-muted-foreground">per person</div>
           </div>
           
           <Button 

@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'SkyFly - Premium Flight Booking',
+  title: 'Rove - Premium Flight Booking',
   description: 'Find and book flights with the best prices and premium experience',
 };
 
@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-black text-white min-h-screen`}>
+      <body className={`${inter.className} bg-background text-foreground min-h-screen`}>
         {children}
       </body>
     </html>

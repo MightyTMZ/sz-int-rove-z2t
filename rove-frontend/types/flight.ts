@@ -4,6 +4,9 @@ export interface FlightOfferList {
   };
 }
 
+// Cabin class options for the dropdown
+export type CabinClass = 'ECONOMY' | 'PREMIUM_ECONOMY' | 'BUSINESS' | 'FIRST';
+
 interface Meta {
   count: number;
   links: {
