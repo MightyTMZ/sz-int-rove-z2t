@@ -1,15 +1,18 @@
+
 import json
 
 filename = "api_data/flight_searches/YYZ_to_SFO.json"
 
 print("YYZ to SFO")
+print("For 1 adults and 0 children")
+print("From 2025-09-17 to 2025-09-20")
 print("------------------------------------------------------------------\n")
 
 with open(filename) as file:
     data = json.load(file) # loads entire JSON object in the file
 
-    # Entire document looks like it is resembling a round trip
-    
+    number_of_points = 50000
+
     flight_offers = data['data']
 
     # Number of flights
@@ -47,7 +50,7 @@ with open(filename) as file:
     print(f"Number of trips with direct flights on both (origin -> destination) AND (destination -> origin) round trips: {len(whole_round_trips)}")
     # print(f"Trip IDs: {whole_round_trips_ids}")
 
-    # Number of flights where both flights are direct (to and from)
+    # Number of flights where both flights are layovers
 
     trips_with_two_overlay = []
     trips_with_two_overlay_ids = []
@@ -81,3 +84,46 @@ with open(filename) as file:
 
     print(f"Number of trips with overlay on EITHER (origin -> destination) OR (destinaton -> origin): {len(trips_with_one_overlay)}")
     # print(f"Trip IDs: {trips_with_one_overlay_ids}")
+
+    print() # Line break
+    print() # Line break
+    print() # Line break
+    print() # Line break
+
+    def get_price(flight):
+        return float(flight["price"]["total"])
+
+    # Sort flights based on price
+    sorted_all = sorted(flight_offers, key=get_price)
+    sorted_one_overlay = sorted(trips_with_one_overlay, key=get_price)
+    sorted_two_overlay = sorted(trips_with_two_overlay, key=get_price)
+    sorted_whole_round = sorted(whole_round_trips, key=get_price)
+
+    def to_proper_vpm_string(val):
+        display = round(val, 2)
+        if val < 1:
+            display = round(val * 100, 2)
+            return f"{display}¢ per mile"
+
+        return f"${display} per mile"
+
+    
+
+    # Print top 3 from each category
+    def print_top_flights(title, flights):
+        print(f"Top 3 {title}:")
+        for i, flight in enumerate(flights[:3]):
+            price = flight["price"]["total"]
+
+            value_per_mile = float(price) / number_of_points
+
+            print(f"{i+1}. Price: ${price} --> {to_proper_vpm_string(value_per_mile)}")
+
+    print_top_flights("overall cheapest flights", sorted_all)
+    print_top_flights("flights with overlay on EITHER leg", sorted_one_overlay)
+    print_top_flights("flights with overlay on BOTH legs", sorted_two_overlay)
+    print_top_flights("direct round trips", sorted_whole_round)
+
+    print(f"You said you wanted to spend 50000 points")
+
+    

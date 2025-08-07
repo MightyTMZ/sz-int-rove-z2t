@@ -243,12 +243,6 @@ ONEWORLD_ALLIANCE_PARTNERS = [
         "countries_territories": 82,
     },
     {
-        "name": "",
-        "frequent flyer programme": "",
-        "destinations": 0,
-        "countries_territories": 0,
-    },
-    {
         "name": "Royal Air Maroc",
         "frequent flyer programme": "Safar Flyer",
         "destinations": 82,
@@ -368,3 +362,21 @@ SKYTEAM_ALLIANCE_PARTNERS = [
     },
     
 ]
+
+
+print(len(STAR_ALLIANCE_PARTNERS) + len(ONEWORLD_ALLIANCE_PARTNERS) + len(SKYTEAM_ALLIANCE_PARTNERS))
+
+ROVE_TRANSFER_RATIOS = {
+    "Accor Live Limitless (Hotels)": 1.5,
+    "Air France-KLM Flying Blue": 1.0,
+    "Air India Maharaja Club": 1.0,
+    "Aeromexico Rewards": 1.0,
+    "Cathay Pacific Asia Miles": 1.0,
+    "Etihad Guest": 1.0,
+    "Finnair Plus": 1.0,
+    "Hainan Airlines Fortune Wings Club": 1.0,
+    "Vietnam Airlines Lotusmiles": 1.0,
+    "Qatar Airways Privilege Club": 1.0,
+    "Thai Airways Royal Orchid Plus": 1.0,
+    "Turkish Airlines Miles&Smiles": 1.0,
+}
