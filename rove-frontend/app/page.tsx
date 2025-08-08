@@ -12,7 +12,7 @@ import { Card } from '@/components/ui/card';
 type ViewState = 'search' | 'results' | 'details' | 'booking';
 
 // const backend = process.env.BACKEND || "http://127.0.0.1:8000"
-const backend = process.env.NEXT_PUBLIC_BACKEND
+const backend = "https://rovemiles.pythonanywhere.com"
 
 // API function to send flight search request
 async function searchFlights(searchParams: SearchParams): Promise<FlightOffer[]> {
