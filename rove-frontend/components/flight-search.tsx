@@ -29,6 +29,9 @@ export interface SearchParams {
 export interface FilterOptions {
   maxPrice: number | null; // null means no limit
   sortBy: 'price-low' | 'price-high' | 'duration' | 'departure';
+  maxStops: number | null; // null means no limit
+  airlines: string[]; // empty array means all airlines
+  departureTime: 'any' | 'morning' | 'afternoon' | 'evening' | 'night';
 }
 
 export default function FlightSearch({ onSearch, isLoading = false }: FlightSearchProps) {
@@ -45,7 +48,10 @@ export default function FlightSearch({ onSearch, isLoading = false }: FlightSear
 
   const [filters, setFilters] = useState<FilterOptions>({
     maxPrice: null,
-    sortBy: 'price-low'
+    sortBy: 'price-low',
+    maxStops: null,
+    airlines: [],
+    departureTime: 'any'
   });
 
   const [showFilters, setShowFilters] = useState(false);

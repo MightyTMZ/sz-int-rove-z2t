@@ -1,18 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { FlightOffer, FlightOfferDateEntry } from '@/types/flight';
 import FlightSearch, { SearchParams, FilterOptions } from '@/components/flight-search';
 import FlightCard from '@/components/flight-card';
 import FlightDetails from '@/components/flight-details';
+import FlightFilters from '@/components/flight-filters';
 import { sampleFlights } from '@/data/sample-flights';
-import { Star, Award, Shield, Loader2 } from 'lucide-react';
+import { Star, Award, Shield, Loader2, Filter } from 'lucide-react';
 import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 type ViewState = 'search' | 'results' | 'details' | 'booking';
 
-// const backend = process.env.BACKEND || "http://127.0.0.1:8000"
-const backend = "https://rovemiles.pythonanywhere.com"
+const backend = process.env.BACKEND || "http://127.0.0.1:8000"
 
 // API function to send flight search request
 async function searchFlights(searchParams: SearchParams): Promise<FlightOffer[]> {
@@ -65,61 +66,42 @@ async function searchFlights(searchParams: SearchParams): Promise<FlightOffer[]>
 export default function Home() {
   const [view, setView] = useState<ViewState>('search');
   const [flights, setFlights] = useState<FlightOffer[]>([]);
+  const [allFlights, setAllFlights] = useState<FlightOffer[]>([]); // Store all flights from search
   const [selectedFlight, setSelectedFlight] = useState<FlightOffer | null>(null);
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
   const [appliedFilters, setAppliedFilters] = useState<FilterOptions | null>(null);
+  const [currentFilters, setCurrentFilters] = useState<FilterOptions>({
+    maxPrice: null,
+    sortBy: 'price-low',
+    maxStops: null,
+    airlines: [],
+    departureTime: 'any'
+  });
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = async (params: SearchParams, filters: FilterOptions) => {
+    const handleSearch = async (params: SearchParams, filters: FilterOptions) => {
     setSearchParams(params);
     setAppliedFilters(filters);
+    setCurrentFilters(filters); // Set current filters to match applied filters
     setIsLoading(true);
     
     try {
       // Send request to backend
       const searchResults = await searchFlights(params);
       
-      // Apply filters to the results
-      let filteredFlights = searchResults;
+      // Store all flights for filtering
+      setAllFlights(searchResults);
       
-      // Apply price filter
-      filteredFlights = filteredFlights.filter(flight => {
-        const price = parseFloat(flight.price.total);
-        // Only apply max price filter if it's set (not null)
-        if (filters.maxPrice !== null) {
-          return price <= filters.maxPrice;
-        }
-        return true; // No price limit
-      });
-      
-      // Apply sorting
-      filteredFlights.sort((a, b) => {
-        switch (filters.sortBy) {
-          case 'price-low':
-            return parseFloat(a.price.total) - parseFloat(b.price.total);
-          case 'price-high':
-            return parseFloat(b.price.total) - parseFloat(a.price.total);
-          case 'duration':
-            const aDuration = a.itineraries[0].duration;
-            const bDuration = b.itineraries[0].duration;
-            const aMinutes = parseDuration(aDuration);
-            const bMinutes = parseDuration(bDuration);
-            return aMinutes - bMinutes;
-          case 'departure':
-            const aTime = new Date(a.itineraries[0].segments[0].departure.at).getTime();
-            const bTime = new Date(b.itineraries[0].segments[0].departure.at).getTime();
-            return aTime - bTime;
-          default:
-            return 0;
-        }
-      });
-      
+      // Apply initial filters
+      const filteredFlights = applyFilters(searchResults, filters);
       setFlights(filteredFlights);
       setView('results');
     } catch (error) {
       console.error('Error during search:', error);
       // Fallback to sample flights
-      setFlights(sampleFlights);
+      setAllFlights(sampleFlights);
+      const filteredFlights = applyFilters(sampleFlights, filters);
+      setFlights(filteredFlights);
       setView('results');
     } finally {
       setIsLoading(false);
@@ -134,6 +116,99 @@ export default function Home() {
     const hours = match[1] ? parseInt(match[1].replace('H', '')) : 0;
     const minutes = match[2] ? parseInt(match[2].replace('M', '')) : 0;
     return hours * 60 + minutes;
+  };
+
+  // Function to apply filters to flights
+  const applyFilters = (flightsToFilter: FlightOffer[], filtersToApply: FilterOptions): FlightOffer[] => {
+    let filteredFlights = [...flightsToFilter];
+    
+    // Apply price filter
+    if (filtersToApply.maxPrice !== null) {
+      filteredFlights = filteredFlights.filter(flight => {
+        const price = parseFloat(flight.price.total);
+        return price <= filtersToApply.maxPrice!;
+      });
+    }
+
+    // Apply stops filter
+    if (filtersToApply.maxStops !== null) {
+      filteredFlights = filteredFlights.filter(flight => {
+        const maxStopsInItinerary = Math.max(...flight.itineraries.map(itinerary => 
+          itinerary.segments.reduce((total, segment) => total + segment.numberOfStops, 0)
+        ));
+        return maxStopsInItinerary <= filtersToApply.maxStops!;
+      });
+    }
+
+    // Apply airline filter
+    if (filtersToApply.airlines.length > 0) {
+      filteredFlights = filteredFlights.filter(flight => {
+        const flightAirlines = flight.itineraries.flatMap(itinerary => 
+          itinerary.segments.map(segment => segment.carrierCode)
+        );
+        return flightAirlines.some(airline => filtersToApply.airlines.includes(airline));
+      });
+    }
+
+    // Apply departure time filter
+    if (filtersToApply.departureTime !== 'any') {
+      filteredFlights = filteredFlights.filter(flight => {
+        const departureTime = new Date(flight.itineraries[0].segments[0].departure.at);
+        const hour = departureTime.getHours();
+        
+        switch (filtersToApply.departureTime) {
+          case 'morning': return hour >= 6 && hour < 12;
+          case 'afternoon': return hour >= 12 && hour < 18;
+          case 'evening': return hour >= 18 && hour < 22;
+          case 'night': return hour >= 22 || hour < 6;
+          default: return true;
+        }
+      });
+    }
+    
+    // Apply sorting
+    filteredFlights.sort((a, b) => {
+      switch (filtersToApply.sortBy) {
+        case 'price-low':
+          return parseFloat(a.price.total) - parseFloat(b.price.total);
+        case 'price-high':
+          return parseFloat(b.price.total) - parseFloat(a.price.total);
+        case 'duration':
+          const aDuration = a.itineraries[0].duration;
+          const bDuration = b.itineraries[0].duration;
+          const aMinutes = parseDuration(aDuration);
+          const bMinutes = parseDuration(bDuration);
+          return aMinutes - bMinutes;
+        case 'departure':
+          const aTime = new Date(a.itineraries[0].segments[0].departure.at).getTime();
+          const bTime = new Date(b.itineraries[0].segments[0].departure.at).getTime();
+          return aTime - bTime;
+        default:
+          return 0;
+      }
+    });
+    
+    return filteredFlights;
+  };
+
+  // Handle filter changes from the filters component
+  const handleFiltersChange = (newFilters: FilterOptions) => {
+    setCurrentFilters(newFilters);
+    const filteredFlights = applyFilters(allFlights, newFilters);
+    setFlights(filteredFlights);
+  };
+
+  // Clear all filters
+  const handleClearAllFilters = () => {
+    const defaultFilters: FilterOptions = {
+      maxPrice: null,
+      sortBy: 'price-low',
+      maxStops: null,
+      airlines: [],
+      departureTime: 'any'
+    };
+    setCurrentFilters(defaultFilters);
+    setFlights(allFlights); // Show all flights without filtering
   };
 
   const handleSelectFlight = (flight: FlightOffer) => {
@@ -184,12 +259,21 @@ export default function Home() {
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <button
-                onClick={handleBackToSearch}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                ← Back to Search
-              </button>
+              <div className="flex items-center space-x-4">
+                <button
+                  onClick={handleBackToSearch}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  ← Back to Search
+                </button>
+                <Button
+                  variant="outline"
+                  onClick={handleBackToSearch}
+                  className="border-border text-foreground hover:bg-accent hover:text-accent-foreground"
+                >
+                  Modify Search
+                </Button>
+              </div>
               <div className="text-right">
                 <div className="text-sm text-muted-foreground">
                   {searchParams?.from} → {searchParams?.to} • {(searchParams?.adults || 0) + (searchParams?.children || 0)} passenger{((searchParams?.adults || 0) + (searchParams?.children || 0)) !== 1 ? 's' : ''}
@@ -202,53 +286,121 @@ export default function Home() {
             
             {/* Applied Filters Summary */}
             {appliedFilters && (
-              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
-                <span>Filters applied:</span>
-                {appliedFilters.maxPrice !== null && (
-                  <span className="bg-card border border-border px-3 py-1 rounded-full">
-                    Under ${appliedFilters.maxPrice}
+              <div className="bg-card border border-border rounded-lg p-4 mb-6">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-medium text-foreground">Active Filters</h3>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleClearAllFilters}
+                    className="text-muted-foreground hover:text-foreground text-xs"
+                  >
+                    Clear All
+                  </Button>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                  {appliedFilters.maxPrice !== null && (
+                    <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">
+                      Under ${appliedFilters.maxPrice}
+                    </span>
+                  )}
+                  {appliedFilters.maxStops !== null && (
+                    <span className="bg-green-50 text-green-700 px-3 py-1 rounded-full border border-green-200">
+                      Max {appliedFilters.maxStops} stop{appliedFilters.maxStops !== 1 ? 's' : ''}
+                    </span>
+                  )}
+                  {appliedFilters.airlines.length > 0 && (
+                    <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded-full border border-purple-200">
+                      {appliedFilters.airlines.join(', ')} airlines
+                    </span>
+                  )}
+                  {appliedFilters.departureTime !== 'any' && (
+                    <span className="bg-orange-50 text-orange-700 px-3 py-1 rounded-full border border-orange-200">
+                      {appliedFilters.departureTime.charAt(0).toUpperCase() + appliedFilters.departureTime.slice(1)} departure
+                    </span>
+                  )}
+                  <span className="bg-gray-50 text-gray-700 px-3 py-1 rounded-full border border-gray-200">
+                    {getSortLabel(appliedFilters.sortBy)}
                   </span>
-                )}
-                <span className="bg-card border border-border px-3 py-1 rounded-full">
-                  {getSortLabel(appliedFilters.sortBy)}
-                </span>
-                {searchParams?.cabinClass && (
-                  <span className="bg-card border border-border px-3 py-1 rounded-full">
-                    {searchParams.cabinClass === 'ECONOMY' ? 'Economy' :
-                     searchParams.cabinClass === 'PREMIUM_ECONOMY' ? 'Premium Economy' :
-                     searchParams.cabinClass === 'BUSINESS' ? 'Business' :
-                     searchParams.cabinClass === 'FIRST' ? 'First Class' : searchParams.cabinClass}
-                  </span>
-                )}
+                  {searchParams?.cabinClass && (
+                    <span className="bg-gray-50 text-gray-700 px-3 py-1 rounded-full border border-gray-200">
+                      {searchParams.cabinClass === 'ECONOMY' ? 'Economy' :
+                       searchParams.cabinClass === 'PREMIUM_ECONOMY' ? 'Premium Economy' :
+                       searchParams.cabinClass === 'BUSINESS' ? 'Business' :
+                       searchParams.cabinClass === 'FIRST' ? 'First Class' : searchParams.cabinClass}
+                    </span>
+                  )}
+                </div>
               </div>
             )}
           </div>
 
-          {/* Results */}
-          <div className="space-y-4">
-            {isLoading ? (
-              <Card className="p-8 bg-card border-border text-center">
-                <div className="flex items-center justify-center space-x-2">
-                  <Loader2 className="h-6 w-6 animate-spin text-blue-400" />
-                  <div className="text-foreground">Searching for flights...</div>
-                </div>
-              </Card>
-            ) : flights.length > 0 ? (
-              flights.map((flight) => (
-                <FlightCard
-                  key={flight.id}
-                  flight={flight}
-                  onSelect={handleSelectFlight}
-                />
-              ))
-            ) : (
-              <Card className="p-8 bg-card border-border text-center">
-                <div className="text-muted-foreground mb-2">No flights found</div>
-                <div className="text-sm text-muted-foreground">
-                  Try adjusting your filters or search criteria
-                </div>
-              </Card>
-            )}
+          {/* Filters and Results Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            {/* Filters Sidebar */}
+            <div className="lg:col-span-1 hidden lg:block">
+              <FlightFilters
+                filters={currentFilters}
+                onFiltersChange={handleFiltersChange}
+                onClearAll={handleClearAllFilters}
+              />
+            </div>
+
+            {/* Results */}
+            <div className="lg:col-span-3 space-y-4">
+              {isLoading ? (
+                <Card className="p-8 bg-card border-border text-center">
+                  <div className="flex items-center justify-center space-x-2">
+                    <Loader2 className="h-6 w-6 animate-spin text-blue-400" />
+                    <div className="text-foreground">Searching for flights...</div>
+                  </div>
+                </Card>
+              ) : flights.length > 0 ? (
+                <>
+                  <div className="text-sm text-muted-foreground mb-4">
+                    Showing {flights.length} of {allFlights.length} flights
+                  </div>
+                  {flights.map((flight) => (
+                    <FlightCard
+                      key={flight.id}
+                      flight={flight}
+                      onSelect={handleSelectFlight}
+                    />
+                  ))}
+                </>
+              ) : (
+                <Card className="p-8 bg-card border-border text-center">
+                  <div className="text-muted-foreground mb-2">No flights match your filters</div>
+                  <div className="text-sm text-muted-foreground">
+                    Try adjusting your filters or search criteria
+                  </div>
+                  <Button
+                    variant="outline"
+                    onClick={handleClearAllFilters}
+                    className="mt-4 border-border text-foreground hover:bg-accent hover:text-accent-foreground"
+                  >
+                    Clear All Filters
+                  </Button>
+                </Card>
+              )}
+            </div>
+          </div>
+
+          {/* Floating Filter Button for Mobile */}
+          <div className="fixed bottom-6 right-6 lg:hidden z-40">
+            <Button
+              onClick={() => {
+                // This will be handled by the FlightFilters component
+                const filterButton = document.querySelector('[data-mobile-filter-trigger]') as HTMLButtonElement;
+                if (filterButton) {
+                  filterButton.click();
+                }
+              }}
+              className="rounded-full w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white shadow-lg"
+              size="lg"
+            >
+              <Filter className="h-6 w-6" />
+            </Button>
           </div>
         </div>
       </div>
