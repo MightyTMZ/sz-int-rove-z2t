@@ -7,7 +7,7 @@ import FlightCard from '@/components/flight-card';
 import FlightDetails from '@/components/flight-details';
 import FlightFilters from '@/components/flight-filters';
 import { sampleFlights } from '@/data/sample-flights';
-import { Star, Award, Shield, Loader2, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, Award, Shield, Loader2, Filter, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -526,10 +526,18 @@ export default function Home() {
                 Rove
               </h1>
             </div>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6">
               Discover exceptional flights with premium service and unbeatable prices. 
               Your journey begins with the perfect flight.
             </p>
+            <div className="flex justify-center gap-4">
+              <a href="/blog">
+                <Button variant="outline" className="flex items-center gap-2">
+                  <BookOpen className="h-4 w-4" />
+                  Read Our Blog
+                </Button>
+              </a>
+            </div>
           </div>
 
           {/* Search Form */}
