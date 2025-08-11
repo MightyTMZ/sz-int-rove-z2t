@@ -24,14 +24,16 @@ export interface SearchParams {
   children: number;
   tripType: 'oneway' | 'roundtrip';
   cabinClass: CabinClass;
+  roveMiles?: number; // New field for Rove Miles
 }
 
 export interface FilterOptions {
   maxPrice: number | null; // null means no limit
-  sortBy: 'price-low' | 'price-high' | 'duration' | 'departure';
+  sortBy: 'price-low' | 'price-high' | 'duration' | 'departure' | 'value-per-mile';
   maxStops: number | null; // null means no limit
   airlines: string[]; // empty array means all airlines
   departureTime: 'any' | 'morning' | 'afternoon' | 'evening' | 'night';
+  minValuePerMile: number | null; // null means no limit
 }
 
 export default function FlightSearch({ onSearch, isLoading = false }: FlightSearchProps) {
@@ -43,7 +45,8 @@ export default function FlightSearch({ onSearch, isLoading = false }: FlightSear
     adults: 1,
     children: 0,
     tripType: 'roundtrip',
-    cabinClass: 'ECONOMY'
+    cabinClass: 'ECONOMY',
+    roveMiles: undefined, // Initialize Rove Miles
   });
 
   const [filters, setFilters] = useState<FilterOptions>({
@@ -51,7 +54,8 @@ export default function FlightSearch({ onSearch, isLoading = false }: FlightSear
     sortBy: 'price-low',
     maxStops: null,
     airlines: [],
-    departureTime: 'any'
+    departureTime: 'any',
+    minValuePerMile: null
   });
 
   const [showFilters, setShowFilters] = useState(false);
@@ -228,6 +232,25 @@ export default function FlightSearch({ onSearch, isLoading = false }: FlightSear
             </div>
           </div>
         </div>
+
+        {/* Rove Miles */}
+        <div className="col-span-full lg:col-span-2">
+          <label className="block text-sm font-medium text-foreground mb-2">Rove Miles (Optional)</label>
+          <div className="relative">
+            <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Input
+              type="number"
+              min="0"
+              value={searchParams.roveMiles || ''}
+              onChange={(e) => setSearchParams(prev => ({ ...prev, roveMiles: e.target.value ? parseInt(e.target.value) : undefined }))}
+              className="pl-10 bg-background border-border text-foreground"
+              placeholder="Enter miles you want to spend"
+            />
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Enter the number of Rove Miles you want to spend to see value per mile calculations
+          </p>
+        </div>
       </div>
 
       <div className="flex space-x-4">
@@ -296,7 +319,7 @@ export default function FlightSearch({ onSearch, isLoading = false }: FlightSear
             <Label className="text-sm font-medium text-foreground mb-3 block">Sort By</Label>
             <Select
               value={filters.sortBy}
-              onValueChange={(value: 'price-low' | 'price-high' | 'duration' | 'departure') => 
+              onValueChange={(value: 'price-low' | 'price-high' | 'duration' | 'departure' | 'value-per-mile') => 
                 setFilters(prev => ({ ...prev, sortBy: value }))
               }
             >
@@ -316,6 +339,11 @@ export default function FlightSearch({ onSearch, isLoading = false }: FlightSear
                 <SelectItem value="departure" className="text-foreground hover:bg-accent">
                   Departure Time: Earliest First
                 </SelectItem>
+                {searchParams.roveMiles && (
+                  <SelectItem value="value-per-mile" className="text-foreground hover:bg-accent">
+                    Best Value per Mile
+                  </SelectItem>
+                )}
               </SelectContent>
             </Select>
           </div>

@@ -35,7 +35,8 @@ export default function FlightFilters({
   const hasActiveFilters = filters.maxPrice !== null || 
                           filters.maxStops !== null || 
                           filters.airlines.length > 0 || 
-                          filters.departureTime !== 'any';
+                          filters.departureTime !== 'any' ||
+                          filters.minValuePerMile !== null;
 
   return (
     <Card className={`bg-card border-border ${className}`}>
@@ -97,11 +98,17 @@ export default function FlightFilters({
                 {filters.departureTime.charAt(0).toUpperCase() + filters.departureTime.slice(1)}
               </span>
             )}
+            {filters.minValuePerMile !== null && (
+              <span className="bg-yellow-50 text-yellow-700 text-sm px-3 py-1 rounded-full border border-yellow-200">
+                Min ${filters.minValuePerMile}/mile
+              </span>
+            )}
             <span className="bg-gray-50 text-gray-700 text-sm px-3 py-1 rounded-full border border-gray-200">
               {filters.sortBy === 'price-low' ? 'Price: Low to High' :
                filters.sortBy === 'price-high' ? 'Price: High to Low' :
                filters.sortBy === 'duration' ? 'Duration: Shortest First' :
-               'Departure: Earliest First'}
+               filters.sortBy === 'departure' ? 'Departure: Earliest First' :
+               filters.sortBy === 'value-per-mile' ? 'Best Value per Mile' : 'Default'}
             </span>
           </div>
         )}
@@ -161,6 +168,23 @@ export default function FlightFilters({
               </div>
             </div>
 
+            {/* Minimum Value per Mile Filter */}
+            <div>
+              <Label htmlFor="minValuePerMile">Minimum Value per Mile</Label>
+              <Input
+                id="minValuePerMile"
+                type="number"
+                placeholder="No limit"
+                value={filters.minValuePerMile || ''}
+                onChange={(e) => handleFilterChange('minValuePerMile', e.target.value ? parseFloat(e.target.value) : null)}
+                min="0"
+                step="0.01"
+              />
+              <p className="text-xs text-muted-foreground">
+                Only show flights that provide at least this value per Rove Mile
+              </p>
+            </div>
+
             {/* Sort By */}
             <div>
               <Label className="text-sm font-medium text-foreground mb-3 block">
@@ -168,7 +192,7 @@ export default function FlightFilters({
               </Label>
               <Select
                 value={filters.sortBy}
-                onValueChange={(value: 'price-low' | 'price-high' | 'duration' | 'departure') => 
+                onValueChange={(value: 'price-low' | 'price-high' | 'duration' | 'departure' | 'value-per-mile') => 
                   handleFilterChange('sortBy', value)
                 }
               >
@@ -187,6 +211,9 @@ export default function FlightFilters({
                   </SelectItem>
                   <SelectItem value="departure" className="text-foreground hover:bg-accent">
                     Departure Time: Earliest First
+                  </SelectItem>
+                  <SelectItem value="value-per-mile" className="text-foreground hover:bg-accent">
+                    Best Value per Mile
                   </SelectItem>
                 </SelectContent>
               </Select>
@@ -365,135 +392,13 @@ export default function FlightFilters({
                   </div>
                 </div>
 
-                {/* Sort By */}
-                <div>
-                  <Label className="text-sm font-medium text-foreground mb-3 block">
-                    Sort By
-                  </Label>
-                  <Select
-                    value={filters.sortBy}
-                    onValueChange={(value: 'price-low' | 'price-high' | 'duration' | 'departure') => 
-                      handleFilterChange('sortBy', value)
-                    }
-                  >
-                    <SelectTrigger className="bg-background border-border text-foreground">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-background border-border">
-                      <SelectItem value="price-low" className="text-foreground hover:bg-accent">
-                        Price: Low to High
-                      </SelectItem>
-                      <SelectItem value="price-high" className="text-foreground hover:bg-accent">
-                        Price: High to Low
-                      </SelectItem>
-                      <SelectItem value="duration" className="text-foreground hover:bg-accent">
-                        Duration: Shortest First
-                      </SelectItem>
-                      <SelectItem value="departure" className="text-foreground hover:bg-accent">
-                        Departure Time: Earliest First
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
 
-                {/* Max Stops */}
-                <div>
-                  <Label className="text-sm font-medium text-foreground mb-3 block">
-                    Maximum Stops
-                  </Label>
-                  <div className="space-y-2">
-                    <Button
-                      variant={filters.maxStops === null ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => handleFilterChange('maxStops', null)}
-                      className="w-full justify-start border-border text-foreground hover:bg-accent hover:text-accent-foreground"
-                    >
-                      Any
-                    </Button>
-                    <Button
-                      variant={filters.maxStops === 0 ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => handleFilterChange('maxStops', 0)}
-                      className="w-full justify-start border-border text-foreground hover:bg-accent hover:text-accent-foreground"
-                    >
-                      Direct flights only
-                    </Button>
-                    <Button
-                      variant={filters.maxStops === 1 ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => handleFilterChange('maxStops', 1)}
-                      className="w-full justify-start border-border text-foreground hover:bg-accent hover:text-accent-foreground"
-                    >
-                      Max 1 stop
-                    </Button>
-                    <Button
-                      variant={filters.maxStops === 2 ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => handleFilterChange('maxStops', 2)}
-                      className="w-full justify-start border-border text-foreground hover:bg-accent hover:text-accent-foreground"
-                    >
-                      Max 2 stops
-                    </Button>
-                  </div>
-                </div>
 
-                {/* Departure Time */}
-                <div>
-                  <Label className="text-sm font-medium text-foreground mb-3 block">
-                    Departure Time
-                  </Label>
-                  <Select
-                    value={filters.departureTime}
-                    onValueChange={(value: 'any' | 'morning' | 'afternoon' | 'evening' | 'night') => 
-                      handleFilterChange('departureTime', value)
-                    }
-                  >
-                    <SelectTrigger className="bg-background border-border text-foreground">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-background border-border">
-                      <SelectItem value="any" className="text-foreground hover:bg-accent">
-                        Any time
-                      </SelectItem>
-                      <SelectItem value="morning" className="text-foreground hover:bg-accent">
-                        Morning (6 AM - 12 PM)
-                      </SelectItem>
-                      <SelectItem value="afternoon" className="text-foreground hover:bg-accent">
-                        Afternoon (12 PM - 6 PM)
-                      </SelectItem>
-                      <SelectItem value="evening" className="text-foreground hover:bg-accent">
-                        Evening (6 PM - 10 PM)
-                      </SelectItem>
-                      <SelectItem value="night" className="text-foreground hover:bg-accent">
-                        Night (10 PM - 6 AM)
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
 
-                {/* Airlines */}
-                <div>
-                  <Label className="text-sm font-medium text-foreground mb-3 block">
-                    Airlines (comma-separated codes)
-                  </Label>
-                  <div className="space-y-3">
-                    <Input
-                      value={filters.airlines.join(', ')}
-                      onChange={(e) => {
-                        const airlineCodes = e.target.value
-                          .split(',')
-                          .map(code => code.trim().toUpperCase())
-                          .filter(code => code.length > 0);
-                        handleFilterChange('airlines', airlineCodes);
-                      }}
-                      className="bg-background border-border text-foreground"
-                      placeholder="e.g., AA, DL, UA"
-                    />
-                    <div className="text-xs text-muted-foreground">
-                      Leave empty for all airlines. Use airline codes like AA, DL, UA
-                    </div>
-                  </div>
-                </div>
+
+
+
+
 
                 {/* Action Buttons */}
                 <div className="flex space-x-3 pt-4">

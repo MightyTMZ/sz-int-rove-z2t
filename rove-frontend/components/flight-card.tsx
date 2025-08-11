@@ -8,14 +8,26 @@ import { Plane, Clock, MapPin } from 'lucide-react';
 
 interface FlightCardProps {
   flight: FlightOffer;
+  roveMiles?: number;
   onClick: (flight: FlightOffer) => void;
 }
 
-export default function FlightCard({ flight, onClick }: FlightCardProps) {
+export default function FlightCard({ flight, roveMiles, onClick }: FlightCardProps) {
   const itinerary = flight.itineraries[0];
   const firstSegment = itinerary.segments[0];
   const lastSegment = itinerary.segments[itinerary.segments.length - 1];
   
+  // Calculate value per mile if Rove Miles are provided
+  const calculateValuePerMile = () => {
+    if (!roveMiles || roveMiles <= 0) return null;
+    
+    const price = parseFloat(flight.price.total);
+    const valuePerMile = price / roveMiles;
+    return valuePerMile;
+  };
+
+  const valuePerMile = calculateValuePerMile();
+
   const formatTime = (datetime: string) => {
     return new Date(datetime).toLocaleTimeString('en-US', {
       hour: '2-digit',
@@ -103,6 +115,21 @@ export default function FlightCard({ flight, onClick }: FlightCardProps) {
               {flight.price.currency} {flight.price.total}
             </div>
             <div className="text-sm text-muted-foreground">total price</div>
+            
+            {/* Value per mile display */}
+            {valuePerMile !== null && (
+              <div className="mt-2 p-2 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                <div className="text-xs text-blue-700 dark:text-blue-300 font-medium">
+                  Value per Rove Mile
+                </div>
+                <div className="text-lg font-bold text-blue-800 dark:text-blue-200">
+                  {flight.price.currency} {valuePerMile.toFixed(2)}
+                </div>
+                {roveMiles && <div className="text-xs text-blue-600 dark:text-blue-400">
+                  {roveMiles.toLocaleString()} miles
+                </div>}
+              </div>
+            )}
           </div>
           
           <Button 

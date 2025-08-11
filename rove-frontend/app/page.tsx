@@ -76,18 +76,24 @@ export default function Home() {
     sortBy: 'price-low',
     maxStops: null,
     airlines: [],
-    departureTime: 'any'
+    departureTime: 'any',
+    minValuePerMile: null
   });
   const [isLoading, setIsLoading] = useState(false);
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
+  
+  // Rove Miles state
+  const [roveMiles, setRoveMiles] = useState<number | undefined>(undefined);
 
     const handleSearch = async (params: SearchParams, filters: FilterOptions) => {
     setSearchParams(params);
     setAppliedFilters(filters);
     setCurrentFilters(filters); // Set current filters to match applied filters
+    setRoveMiles(params.roveMiles); // Store Rove Miles for value calculations
+    setCurrentPage(1); // Reset to first page when searching
     setIsLoading(true);
     
     try {
@@ -134,7 +140,7 @@ export default function Home() {
         return price <= filtersToApply.maxPrice!;
       });
     }
-
+    
     // Apply stops filter
     if (filtersToApply.maxStops !== null) {
       filteredFlights = filteredFlights.filter(flight => {
@@ -170,6 +176,15 @@ export default function Home() {
         }
       });
     }
+
+    // Apply minimum value per mile filter
+    if (filtersToApply.minValuePerMile !== null && roveMiles && roveMiles > 0) {
+      filteredFlights = filteredFlights.filter(flight => {
+        const price = parseFloat(flight.price.total);
+        const valuePerMile = price / roveMiles;
+        return valuePerMile >= filtersToApply.minValuePerMile!;
+      });
+    }
     
     // Apply sorting
     filteredFlights.sort((a, b) => {
@@ -188,6 +203,11 @@ export default function Home() {
           const aTime = new Date(a.itineraries[0].segments[0].departure.at).getTime();
           const bTime = new Date(b.itineraries[0].segments[0].departure.at).getTime();
           return aTime - bTime;
+        case 'value-per-mile':
+          if (!roveMiles || roveMiles <= 0) return 0;
+          const aValuePerMile = parseFloat(a.price.total) / roveMiles;
+          const bValuePerMile = parseFloat(b.price.total) / roveMiles;
+          return bValuePerMile - aValuePerMile; // Higher value per mile first
         default:
           return 0;
       }
@@ -211,7 +231,8 @@ export default function Home() {
       sortBy: 'price-low',
       maxStops: null,
       airlines: [],
-      departureTime: 'any'
+      departureTime: 'any',
+      minValuePerMile: null
     };
     setCurrentFilters(defaultFilters);
     setCurrentPage(1); // Reset to first page
@@ -242,6 +263,7 @@ export default function Home() {
       case 'price-high': return 'Price: High to Low';
       case 'duration': return 'Duration: Shortest First';
       case 'departure': return 'Departure: Earliest First';
+      case 'value-per-mile': return 'Best Value per Mile';
       default: return 'Default';
     }
   };
@@ -295,10 +317,12 @@ export default function Home() {
                 <h1 className="text-2xl font-bold text-foreground">Flight Results</h1>
                 <p className="text-muted-foreground">
                   {flights.length} flights found
+                  {roveMiles && ` • Using ${roveMiles.toLocaleString()} Rove Miles`}
                   {currentFilters.maxPrice !== null && ` • Max price: $${currentFilters.maxPrice}`}
                   {currentFilters.maxStops !== null && ` • Max stops: ${currentFilters.maxStops}`}
                   {currentFilters.airlines.length > 0 && ` • Airlines: ${currentFilters.airlines.join(', ')}`}
                   {currentFilters.departureTime !== 'any' && ` • Time: ${currentFilters.departureTime}`}
+                  {currentFilters.minValuePerMile !== null && roveMiles && ` • Min value: $${currentFilters.minValuePerMile}/mile`}
                 </p>
               </div>
               <div className="flex gap-2">
@@ -377,6 +401,7 @@ export default function Home() {
                       <FlightCard
                         key={flight.id}
                         flight={flight}
+                        roveMiles={roveMiles}
                         onClick={() => {
                           setSelectedFlight(flight);
                           setView('details');
@@ -385,7 +410,7 @@ export default function Home() {
                     ))}
                   </div>
 
-                  {/* Pagination Controls */}
+                  {/* Pagination ControveMilesrols */}
                   {totalPages > 1 && (
                     <div className="flex items-center justify-center gap-2 pt-6">
                       <Button
