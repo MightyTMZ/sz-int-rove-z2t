@@ -7,9 +7,10 @@ import FlightCard from '@/components/flight-card';
 import FlightDetails from '@/components/flight-details';
 import FlightFilters from '@/components/flight-filters';
 import { sampleFlights } from '@/data/sample-flights';
-import { Star, Award, Shield, Loader2, Filter } from 'lucide-react';
+import { Star, Award, Shield, Loader2, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type ViewState = 'search' | 'results' | 'details' | 'booking';
 
@@ -78,6 +79,10 @@ export default function Home() {
     departureTime: 'any'
   });
   const [isLoading, setIsLoading] = useState(false);
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
 
     const handleSearch = async (params: SearchParams, filters: FilterOptions) => {
     setSearchParams(params);
@@ -194,6 +199,7 @@ export default function Home() {
   // Handle filter changes from the filters component
   const handleFiltersChange = (newFilters: FilterOptions) => {
     setCurrentFilters(newFilters);
+    setCurrentPage(1); // Reset to first page when filters change
     const filteredFlights = applyFilters(allFlights, newFilters);
     setFlights(filteredFlights);
   };
@@ -208,6 +214,7 @@ export default function Home() {
       departureTime: 'any'
     };
     setCurrentFilters(defaultFilters);
+    setCurrentPage(1); // Reset to first page
     setFlights(allFlights); // Show all flights without filtering
   };
 
@@ -238,6 +245,31 @@ export default function Home() {
       default: return 'Default';
     }
   };
+
+  // Pagination calculations
+  const totalPages = Math.ceil(flights.length / pageSize);
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const currentFlights = flights.slice(startIndex, endIndex);
+
+  const goToPage = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   if (view === 'details' && selectedFlight) {
     return (
       <div className="min-h-screen bg-background">
@@ -255,90 +287,44 @@ export default function Home() {
   if (view === 'results') {
     return (
       <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-8">
-          {/* Header */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={handleBackToSearch}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  ← Back to Search
-                </button>
+        {/* Header */}
+        <div className="bg-card border-b border-border px-4 py-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h1 className="text-2xl font-bold text-foreground">Flight Results</h1>
+                <p className="text-muted-foreground">
+                  {flights.length} flights found
+                  {currentFilters.maxPrice !== null && ` • Max price: $${currentFilters.maxPrice}`}
+                  {currentFilters.maxStops !== null && ` • Max stops: ${currentFilters.maxStops}`}
+                  {currentFilters.airlines.length > 0 && ` • Airlines: ${currentFilters.airlines.join(', ')}`}
+                  {currentFilters.departureTime !== 'any' && ` • Time: ${currentFilters.departureTime}`}
+                </p>
+              </div>
+              <div className="flex gap-2">
                 <Button
                   variant="outline"
-                  onClick={handleBackToSearch}
-                  className="border-border text-foreground hover:bg-accent hover:text-accent-foreground"
+                  onClick={() => setView('search')}
+                  className="flex items-center gap-2"
                 >
+                  <Filter className="h-4 w-4" />
                   Modify Search
                 </Button>
-              </div>
-              <div className="text-right">
-                <div className="text-sm text-muted-foreground">
-                  {searchParams?.from} → {searchParams?.to} • {(searchParams?.adults || 0) + (searchParams?.children || 0)} passenger{((searchParams?.adults || 0) + (searchParams?.children || 0)) !== 1 ? 's' : ''}
-                </div>
-                <div className="text-foreground font-semibold">
-                  {isLoading ? 'Searching...' : `${flights.length} flights found`}
-                </div>
+                <Button
+                  variant="outline"
+                  onClick={() => setView('search')}
+                >
+                  Back to Search
+                </Button>
               </div>
             </div>
-            
-            {/* Applied Filters Summary */}
-            {appliedFilters && (
-              <div className="bg-card border border-border rounded-lg p-4 mb-6">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-medium text-foreground">Active Filters</h3>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleClearAllFilters}
-                    className="text-muted-foreground hover:text-foreground text-xs"
-                  >
-                    Clear All
-                  </Button>
-                </div>
-                <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                  {appliedFilters.maxPrice !== null && (
-                    <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">
-                      Under ${appliedFilters.maxPrice}
-                    </span>
-                  )}
-                  {appliedFilters.maxStops !== null && (
-                    <span className="bg-green-50 text-green-700 px-3 py-1 rounded-full border border-green-200">
-                      Max {appliedFilters.maxStops} stop{appliedFilters.maxStops !== 1 ? 's' : ''}
-                    </span>
-                  )}
-                  {appliedFilters.airlines.length > 0 && (
-                    <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded-full border border-purple-200">
-                      {appliedFilters.airlines.join(', ')} airlines
-                    </span>
-                  )}
-                  {appliedFilters.departureTime !== 'any' && (
-                    <span className="bg-orange-50 text-orange-700 px-3 py-1 rounded-full border border-orange-200">
-                      {appliedFilters.departureTime.charAt(0).toUpperCase() + appliedFilters.departureTime.slice(1)} departure
-                    </span>
-                  )}
-                  <span className="bg-gray-50 text-gray-700 px-3 py-1 rounded-full border border-gray-200">
-                    {getSortLabel(appliedFilters.sortBy)}
-                  </span>
-                  {searchParams?.cabinClass && (
-                    <span className="bg-gray-50 text-gray-700 px-3 py-1 rounded-full border border-gray-200">
-                      {searchParams.cabinClass === 'ECONOMY' ? 'Economy' :
-                       searchParams.cabinClass === 'PREMIUM_ECONOMY' ? 'Premium Economy' :
-                       searchParams.cabinClass === 'BUSINESS' ? 'Business' :
-                       searchParams.cabinClass === 'FIRST' ? 'First Class' : searchParams.cabinClass}
-                    </span>
-                  )}
-                </div>
-              </div>
-            )}
           </div>
+        </div>
 
-          {/* Filters and Results Layout */}
+        <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {/* Filters Sidebar */}
-            <div className="lg:col-span-1 hidden lg:block">
+            <div className="lg:col-span-1">
               <FlightFilters
                 filters={currentFilters}
                 onFiltersChange={handleFiltersChange}
@@ -347,62 +333,157 @@ export default function Home() {
             </div>
 
             {/* Results */}
-            <div className="lg:col-span-3 space-y-4">
-              {isLoading ? (
-                <Card className="p-8 bg-card border-border text-center">
-                  <div className="flex items-center justify-center space-x-2">
-                    <Loader2 className="h-6 w-6 animate-spin text-blue-400" />
-                    <div className="text-foreground">Searching for flights...</div>
+            <div className="lg:col-span-3">
+              {flights.length === 0 ? (
+                <Card className="p-8 text-center">
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-foreground">No flights match your filters</h3>
+                    <p className="text-muted-foreground">Try adjusting your search criteria or clearing all filters.</p>
+                    <Button onClick={handleClearAllFilters} variant="outline">
+                      Clear All Filters
+                    </Button>
                   </div>
                 </Card>
-              ) : flights.length > 0 ? (
-                <>
-                  <div className="text-sm text-muted-foreground mb-4">
-                    Showing {flights.length} of {allFlights.length} flights
-                  </div>
-                  {flights.map((flight) => (
-                    <FlightCard
-                      key={flight.id}
-                      flight={flight}
-                      onSelect={handleSelectFlight}
-                    />
-                  ))}
-                </>
               ) : (
-                <Card className="p-8 bg-card border-border text-center">
-                  <div className="text-muted-foreground mb-2">No flights match your filters</div>
-                  <div className="text-sm text-muted-foreground">
-                    Try adjusting your filters or search criteria
+                <div className="space-y-4">
+                  {/* Pagination Info */}
+                  <div className="flex items-center justify-between text-sm text-muted-foreground">
+                    <span>
+                      Showing {startIndex + 1}-{Math.min(endIndex, flights.length)} of {flights.length} flights
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span>Show:</span>
+                      <Select value={pageSize.toString()} onValueChange={(value) => {
+                        setPageSize(parseInt(value));
+                        setCurrentPage(1); // Reset to first page when changing page size
+                      }}>
+                        <SelectTrigger className="w-20">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="10">10</SelectItem>
+                          <SelectItem value="20">20</SelectItem>
+                          <SelectItem value="50">50</SelectItem>
+                          <SelectItem value="100">100</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <span>per page</span>
+                    </div>
                   </div>
-                  <Button
-                    variant="outline"
-                    onClick={handleClearAllFilters}
-                    className="mt-4 border-border text-foreground hover:bg-accent hover:text-accent-foreground"
-                  >
-                    Clear All Filters
-                  </Button>
-                </Card>
+
+                  {/* Flight Cards */}
+                  <div className="space-y-4">
+                    {currentFlights.map((flight) => (
+                      <FlightCard
+                        key={flight.id}
+                        flight={flight}
+                        onClick={() => {
+                          setSelectedFlight(flight);
+                          setView('details');
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Pagination Controls */}
+                  {totalPages > 1 && (
+                    <div className="flex items-center justify-center gap-2 pt-6">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={goToPreviousPage}
+                        disabled={currentPage === 1}
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                        Previous
+                      </Button>
+                      
+                      {/* Page Numbers */}
+                      <div className="flex items-center gap-1">
+                        {/* First page */}
+                        {currentPage > 3 && (
+                          <>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => goToPage(1)}
+                              className="w-8 h-8"
+                            >
+                              1
+                            </Button>
+                            {currentPage > 4 && (
+                              <span className="px-2 text-muted-foreground">...</span>
+                            )}
+                          </>
+                        )}
+                        
+                        {/* Current page and surrounding pages */}
+                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                          const page = Math.max(1, Math.min(totalPages, currentPage - 2 + i));
+                          if (page < 1 || page > totalPages) return null;
+                          
+                          return (
+                            <Button
+                              key={page}
+                              variant={page === currentPage ? "default" : "outline"}
+                              size="sm"
+                              onClick={() => goToPage(page)}
+                              className="w-8 h-8"
+                            >
+                              {page}
+                            </Button>
+                          );
+                        })}
+                        
+                        {/* Last page */}
+                        {currentPage < totalPages - 2 && (
+                          <>
+                            {currentPage < totalPages - 3 && (
+                              <span className="px-2 text-muted-foreground">...</span>
+                            )}
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => goToPage(totalPages)}
+                              className="w-8 h-8"
+                            >
+                              {totalPages}
+                            </Button>
+                          </>
+                        )}
+                      </div>
+                      
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={goToNextPage}
+                        disabled={currentPage === totalPages}
+                      >
+                        Next
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           </div>
-
-          {/* Floating Filter Button for Mobile */}
-          <div className="fixed bottom-6 right-6 lg:hidden z-40">
-            <Button
-              onClick={() => {
-                // This will be handled by the FlightFilters component
-                const filterButton = document.querySelector('[data-mobile-filter-trigger]') as HTMLButtonElement;
-                if (filterButton) {
-                  filterButton.click();
-                }
-              }}
-              className="rounded-full w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white shadow-lg"
-              size="lg"
-            >
-              <Filter className="h-6 w-6" />
-            </Button>
-          </div>
         </div>
+
+        {/* Mobile Filter Button */}
+        <Button
+          className="fixed bottom-6 right-6 lg:hidden z-50 shadow-lg"
+          size="lg"
+          onClick={() => {
+            const mobileFilterTrigger = document.querySelector('[data-mobile-filter-trigger]') as HTMLButtonElement;
+            if (mobileFilterTrigger) {
+              mobileFilterTrigger.click();
+            }
+          }}
+        >
+          <Filter className="h-5 w-5 mr-2" />
+          Filters
+        </Button>
       </div>
     );
   }

@@ -8,10 +8,10 @@ import { Plane, Clock, MapPin } from 'lucide-react';
 
 interface FlightCardProps {
   flight: FlightOffer;
-  onSelect: (flight: FlightOffer) => void;
+  onClick: (flight: FlightOffer) => void;
 }
 
-export default function FlightCard({ flight, onSelect }: FlightCardProps) {
+export default function FlightCard({ flight, onClick }: FlightCardProps) {
   const itinerary = flight.itineraries[0];
   const firstSegment = itinerary.segments[0];
   const lastSegment = itinerary.segments[itinerary.segments.length - 1];
@@ -106,7 +106,7 @@ export default function FlightCard({ flight, onSelect }: FlightCardProps) {
           </div>
           
           <Button 
-            onClick={() => onSelect(flight)}
+            onClick={() => onClick(flight)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-8"
           >
             Select Flight
