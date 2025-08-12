@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Clock, User, Calendar, Share2, BookOpen, Tag } from "lucide-react";
 import Link from "next/link";
 
-const WhatIsRoveMiles = () => {
+const TravelHackingForBeginners = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -247,4 +247,4 @@ const WhatIsRoveMiles = () => {
   );
 };
 
-export default WhatIsRoveMiles;
+export default TravelHackingForBeginners;

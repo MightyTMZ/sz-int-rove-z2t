@@ -16,83 +16,83 @@ const blogPosts = [
     excerpt: "Learn the best strategies to earn, redeem, and maximize the value of your Rove Miles for premium flights and upgrades.",
     content: "Full article content would go here...",
     author: "Rove Team",
-    publishDate: "2024-01-15",
-    readTime: "8 min read",
+    publishDate: "2025-08-09",
+    readTime: "5 min read",
     category: "Miles & Rewards",
     tags: ["Rove Miles", "Travel Tips", "Rewards"],
     featured: true,
-    image: "/api/placeholder/400/250"
+    image: "/rove_miles_banner.avif"
   },
   {
     id: 2,
-    slug: "understanding-airline-alliances-star-alliance-vs-oneworld-vs-skyteam",
-    title: "Understanding Airline Alliances: Star Alliance vs OneWorld vs SkyTeam",
+    slug: "airline-alliances-star-alliance-vs-oneworld-vs-skyteam",
+    title: "Airline Alliances: Star Alliance vs OneWorld vs SkyTeam",
     excerpt: "Discover how airline alliances work and which one might be best for your travel patterns and loyalty program preferences.",
     content: "Full article content would go here...",
-    author: "Travel Expert",
-    publishDate: "2024-01-10",
-    readTime: "12 min read",
+    author: "Tom Zhang",
+    publishDate: "2025-08-12",
+    readTime: "6 min read",
     category: "Airline Guide",
     tags: ["Airlines", "Alliances", "Loyalty Programs"],
     featured: false,
-    image: "/api/placeholder/400/250"
+    image: "/airline_alliances.avif"
   },
   {
     id: 3,
-    slug: "ultimate-guide-premium-economy-worth-upgrade",
-    title: "The Ultimate Guide to Premium Economy: Is It Worth the Upgrade?",
+    slug: "what-is-premium-economy",
+    title: "What is Premium Economy? A Young Traveler's Guide",
     excerpt: "Compare premium economy offerings across major airlines and learn when this class provides the best value for your money.",
     content: "Full article content would go here...",
-    author: "Cabin Class Specialist",
-    publishDate: "2024-01-08",
-    readTime: "10 min read",
+    author: "Landon Turk",
+    publishDate: "2025-08-11",
+    readTime: "7 min read",
     category: "Cabin Classes",
     tags: ["Premium Economy", "Upgrades", "Value"],
     featured: false,
-    image: "/api/placeholder/400/250"
+    image: "/premium_economy.avif"
   },
   {
     id: 4,
-    slug: "seasonal-flight-booking-when-to-book-best-prices",
-    title: "Seasonal Flight Booking: When to Book for the Best Prices",
-    excerpt: "Master the art of timing your flight bookings to secure the lowest fares throughout the year.",
+    slug: "synthetic-routing",
+    title: "What is Synthetic Routing?",
+    excerpt: "Learn how to creatively piece together flight segments to save money and fly smarter.",
     content: "Full article content would go here...",
-    author: "Pricing Analyst",
-    publishDate: "2024-01-05",
+    author: "Tom Zhang",
+    publishDate: "2025-08-12",
     readTime: "6 min read",
     category: "Booking Tips",
-    tags: ["Pricing", "Seasonal", "Timing"],
+    tags: ["Travel Hacks", "Flight Booking", "Airlines"],
     featured: false,
-    image: "/api/placeholder/400/250"
+    image: "https://www.bentley.com/wp-content/uploads/elementor/thumbs/thumbnail-openpaths-agent-testimonial-3-680x400-1-r94vo6d73vds9z6df4m1qa387hax8vs8n9ikohw0i4.jpg"
   },
-  {
-    id: 5,
-    slug: "hidden-city-ticketing-pros-cons-legal-considerations",
-    title: "Hidden City Ticketing: The Pros, Cons, and Legal Considerations",
-    excerpt: "Explore the controversial practice of hidden city ticketing and understand when it might work for savvy travelers.",
-    content: "Full article content would go here...",
-    author: "Legal Travel Expert",
-    publishDate: "2024-01-03",
-    readTime: "15 min read",
-    category: "Advanced Strategies",
-    tags: ["Hidden City", "Legal", "Advanced"],
-    featured: false,
-    image: "/api/placeholder/400/250"
-  },
-  {
-    id: 6,
-    slug: "airport-lounge-access-how-to-get-in-without-premium-ticket",
-    title: "Airport Lounge Access: How to Get In Without a Premium Ticket",
-    excerpt: "Discover multiple ways to access airport lounges, from credit card benefits to day passes and membership programs.",
-    content: "Full article content would go here...",
-    author: "Lounge Expert",
-    publishDate: "2024-01-01",
-    readTime: "7 min read",
-    category: "Airport Experience",
-    tags: ["Lounges", "Credit Cards", "Membership"],
-    featured: false,
-    image: "/api/placeholder/400/250"
-  }
+  // {
+  //   id: 5,
+  //   slug: "hidden-city-ticketing-pros-cons-legal-considerations",
+  //   title: "Hidden City Ticketing: The Pros, Cons, and Legal Considerations",
+  //   excerpt: "Explore the controversial practice of hidden city ticketing and understand when it might work for savvy travelers.",
+  //   content: "Full article content would go here...",
+  //   author: "Legal Travel Expert",
+  //   publishDate: "2024-01-03",
+  //   readTime: "15 min read",
+  //   category: "Advanced Strategies",
+  //   tags: ["Hidden City", "Legal", "Advanced"],
+  //   featured: false,
+  //   image: "/api/placeholder/400/250"
+  // },
+  // {
+  //   id: 6,
+  //   slug: "airport-lounge-access-how-to-get-in-without-premium-ticket",
+  //   title: "Airport Lounge Access: How to Get In Without a Premium Ticket",
+  //   excerpt: "Discover multiple ways to access airport lounges, from credit card benefits to day passes and membership programs.",
+  //   content: "Full article content would go here...",
+  //   author: "Lounge Expert",
+  //   publishDate: "2024-01-01",
+  //   readTime: "7 min read",
+  //   category: "Airport Experience",
+  //   tags: ["Lounges", "Credit Cards", "Membership"],
+  //   featured: false,
+  //   image: "/api/placeholder/400/250"
+  // }
 ];
 
 const categories = [
@@ -226,7 +226,7 @@ export default function BlogPage() {
               Featured Article
             </h2>
             {filteredPosts.filter(post => post.featured).map((post) => (
-              <BlogCard key={post.id} post={post} variant="featured" />
+              <BlogCard key={post.id} post={post} variant="featured" showImage={true}/>
             ))}
           </div>
         )}

@@ -1,27 +1,36 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Clock, User, ArrowRight, BookOpen } from 'lucide-react';
-import Link from 'next/link';
-import { BlogPost } from '@/types/blog';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Clock, User, ArrowRight, BookOpen } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { BlogPost } from "@/types/blog";
 
 interface BlogCardProps {
   post: BlogPost;
-  variant?: 'default' | 'featured' | 'compact';
+  variant?: "default" | "featured" | "compact";
   showImage?: boolean;
 }
 
-export default function BlogCard({ post, variant = 'default', showImage = true }: BlogCardProps) {
-  if (variant === 'featured') {
+export default function BlogCard({
+  post,
+  variant = "default",
+  showImage = true,
+}: BlogCardProps) {
+  if (variant === "featured") {
     return (
       <Card className="max-w-4xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-6">
             <div className="flex items-center gap-2 mb-3">
               <Badge variant="secondary">{post.category}</Badge>
-              {post.featured && (
-                <Badge variant="default">Featured</Badge>
-              )}
+              {post.featured && <Badge variant="default">Featured</Badge>}
             </div>
             <CardTitle className="text-2xl mb-3">{post.title}</CardTitle>
             <CardDescription className="text-base mb-4">
@@ -47,8 +56,17 @@ export default function BlogCard({ post, variant = 'default', showImage = true }
           {showImage && (
             <div className="bg-muted rounded-r-lg flex items-center justify-center">
               <div className="text-muted-foreground text-center p-8">
-                <BookOpen className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                <p>Article Image</p>
+                <Image
+                  src={post.image}
+                  alt={"Article Image"}
+                  height={100}
+                  width={200}
+                  style={{
+                    height: "auto",
+                    width: "100%",
+                    objectFit: "cover",
+                  }}
+                />
               </div>
             </div>
           )}
@@ -57,7 +75,7 @@ export default function BlogCard({ post, variant = 'default', showImage = true }
     );
   }
 
-  if (variant === 'compact') {
+  if (variant === "compact") {
     return (
       <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
         <CardHeader className="flex-1 pb-3">
@@ -104,11 +122,18 @@ export default function BlogCard({ post, variant = 'default', showImage = true }
   return (
     <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
       {showImage && (
-        <div className="bg-muted h-48 rounded-t-lg flex items-center justify-center">
-          <div className="text-muted-foreground text-center p-4">
-            <BookOpen className="h-12 w-12 mx-auto mb-2 opacity-50" />
-            <p className="text-sm">Article Image</p>
-          </div>
+        <div className="bg-muted h-48 rounded-t-lg flex items-center justify-center overflow-hidden">
+          <Image
+            src={post.image}
+            alt={"Article Image"}
+            height={100}
+            width={200}
+            style={{
+              height: "auto",
+              width: "100%",
+            }}
+            
+          />
         </div>
       )}
       <CardHeader className="flex-1">
