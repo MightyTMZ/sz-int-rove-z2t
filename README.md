@@ -227,15 +227,15 @@ npm run test
 Special thanks to our amazing team and their contributions!
 
 Team Members:
-- Landon Turk
-- Nathan Zhang
-- Naya Ramadan
-- Rahil Menta
-- Tom Zhang
-- Vishva Rao
-- Winston Chen
+- **Landon Turk**
+- **Nathan Zhang**
+- **Naya Ramadan**
+- **Rahil Menta**
+- **Tom Zhang**
+- **Vishva Rao**
+- **Winston Chen**
 
-Taryn Riddle - Product Manager
-Co-Founder of Rove (YC W24) and Program Director of HUVSTP - Arhan Chhabra
+**Taryn Riddle** - Product Manager
+**Arhan Chhabra** - Co-Founder of Rove (YC W24) and Program Director of HUVSTP
 
-Lastly, shoutout to our other program directors Anaiy Somalwar and Caleb Kline!
+Lastly, shoutout to our other program directors **Anaiy Somalwar** and **Caleb Kline**!
