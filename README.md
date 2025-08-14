@@ -236,6 +236,7 @@ Team Members:
 - Winston Chen
 
 Taryn Riddle - Product Manager
+
 Co-Founder of Rove (YC W24) and Program Director of HUVSTP - Arhan Chhabra
 
 Lastly, shoutout to our other program directors Anaiy Somalwar and Caleb Kline!
