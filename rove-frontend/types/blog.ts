@@ -31,3 +31,4 @@ export interface BlogFilters {
   selectedCategory: string;
   selectedTags: string[];
 }
+

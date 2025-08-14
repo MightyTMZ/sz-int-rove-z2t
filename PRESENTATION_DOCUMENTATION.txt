@@ -1,0 +1,148 @@
+ROVE MILES FLIGHT SEARCH TOOL - FOUNDERS PRESENTATION
+=====================================================
+
+PRESENTATION OUTLINE (8-10 minutes + 5 minutes Q&A)
+==================================================
+
+SLIDE 1: PROJECT OVERVIEW
+-------------------------
+• Rove Miles Flight Search Tool - A comprehensive flight search and optimization platform
+• Built during internship to enhance travel planning capabilities
+• Integrates with Amadeus API for real-time flight data
+• Features value-per-mile calculations for Rove Miles optimization
+• Modern web interface with advanced filtering and sorting capabilities
+
+SLIDE 2: TOOL ARCHITECTURE & TECHNICAL IMPLEMENTATION
+-----------------------------------------------------
+• Backend: Django REST API with PostgreSQL database
+• Frontend: Next.js 13 with TypeScript and Tailwind CSS
+• Flight Search Engine: Amadeus API integration with token management
+• Data Models: FlightSearch, comprehensive flight offer storage
+• Real-time API calls with caching and error handling
+• Responsive design with mobile-first approach
+
+SLIDE 3: LIVE DEMONSTRATION
+---------------------------
+• Flight search interface with origin/destination selection
+• Date picker for departure and return dates
+• Passenger configuration (adults, children, cabin class)
+• Rove Miles input for value calculations
+• Advanced filtering: price, stops, airlines, departure time
+• Value-per-mile sorting and filtering
+• Flight results with detailed itineraries
+• Interactive flight selection and details view
+
+SLIDE 4: CORE LOGIC & VALUE-PER-MILE CALCULATION
+------------------------------------------------
+• Flight search algorithm using Amadeus Flight Offers Search API
+• Real-time pricing and availability data
+• Value-per-mile calculation: Price ÷ Rove Miles = Value per Mile
+• Advanced filtering system for optimal flight selection
+• Multi-criteria sorting (price, duration, departure time, value-per-mile)
+• Intelligent caching system for API token management
+• Error handling and fallback mechanisms
+
+SLIDE 5: DATA SOURCES & METHODOLOGY
+-----------------------------------
+• Primary Data Source: Amadeus Flight Offers Search API v2
+• Real-time flight availability, pricing, and routing information
+• Comprehensive flight data including:
+  - Multiple cabin classes (Economy, Premium Economy, Business, First)
+  - Detailed itinerary information with segments and stops
+  - Real-time pricing in multiple currencies
+  - Airline and aircraft information
+  - Baggage and amenity details
+• Data collection methods: RESTful API calls with OAuth2 authentication
+• Rate limiting and token management for optimal API performance
+
+SLIDE 6: IMPLEMENTATION & INSTALLATION GUIDE
+--------------------------------------------
+• Environment Setup:
+  - Python 3.8+ with Django 5.1.7
+  - Node.js 18+ with Next.js 13
+  - PostgreSQL database
+  - Environment variables for API keys and database configuration
+• Installation Steps:
+  1. Clone repository and install Python dependencies
+  2. Set up environment variables (.env file)
+  3. Run database migrations
+  4. Install Node.js dependencies
+  5. Start Django backend and Next.js frontend
+• Docker deployment available for containerized environments
+• Cloud deployment on PythonAnywhere for production use
+
+SLIDE 7: FUTURE IMPROVEMENTS & ROADMAP
+--------------------------------------
+• Enhanced Features:
+  - Hotel and car rental integration
+  - Multi-city routing optimization
+  - Loyalty program integration beyond Rove Miles
+  - Advanced analytics and reporting
+  - Mobile app development
+• Technical Enhancements:
+  - Machine learning for price prediction
+  - Advanced caching and performance optimization
+  - Multi-language support
+  - Enhanced security and authentication
+• Business Opportunities:
+  - Partnership with travel agencies
+  - White-label solutions for corporate clients
+  - Revenue sharing with booking platforms
+
+SLIDE 8: IMPACT & STRATEGIC VALUE
+---------------------------------
+• Current Impact:
+  - Streamlined flight search process for Rove Miles users
+  - Data-driven decision making for optimal value
+  - Enhanced user experience with modern interface
+• Strategic Value:
+  - Competitive advantage in travel optimization
+  - Foundation for comprehensive travel platform
+  - Scalable architecture for future growth
+• Market Position:
+  - Unique value-per-mile optimization approach
+  - Integration potential with existing travel ecosystems
+  - Technology foundation for expansion into other travel services
+
+ANTICIPATED QUESTIONS & ANSWERS
+===============================
+
+Q: What is the logic behind the value-per-mile calculation?
+A: The value-per-mile calculation divides the flight price by the number of Rove Miles required, helping users identify flights that provide the best value for their miles. This enables data-driven decisions about when to use miles vs. pay cash.
+
+Q: How do you keep your data current?
+A: We integrate directly with Amadeus API, which provides real-time flight data including availability, pricing, and routing. Our system makes live API calls for each search, ensuring users always see current information.
+
+Q: How does this compare to existing tools?
+A: Unlike generic flight search engines, our tool specifically optimizes for Rove Miles value, provides advanced filtering based on value-per-mile, and offers a modern, user-friendly interface focused on loyalty program optimization.
+
+Q: What are the technical challenges you've overcome?
+A: Key challenges included implementing robust token management for API authentication, designing an efficient caching system, creating a responsive frontend that handles complex flight data, and building a scalable backend architecture.
+
+Q: How scalable is this solution?
+A: The Django backend with PostgreSQL provides excellent scalability. The API-first architecture allows for easy integration with mobile apps and third-party services. The caching system reduces API calls and improves performance under load.
+
+INTERNSHIP INSIGHTS & LEARNING
+==============================
+• Technical Skills Developed:
+  - Full-stack development with Django and Next.js
+  - API integration and authentication systems
+  - Database design and optimization
+  - Modern frontend development with TypeScript
+  - DevOps and deployment practices
+
+• Business Understanding:
+  - Travel industry API ecosystems
+  - Loyalty program optimization strategies
+  - User experience design for complex data
+  - Product development lifecycle
+
+• Professional Growth:
+  - Project management and timeline adherence
+  - Technical documentation and presentation skills
+  - Problem-solving in real-world scenarios
+  - Collaboration and communication with stakeholders
+
+CONCLUSION
+==========
+The Rove Miles Flight Search Tool represents a significant step forward in travel optimization technology. By combining real-time flight data with intelligent value calculations, we've created a platform that not only serves current needs but provides a foundation for future growth and innovation in the travel technology space.
