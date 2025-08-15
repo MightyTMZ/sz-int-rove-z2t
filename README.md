@@ -234,6 +234,7 @@ Team Members:
 - **Tom Zhang**
 - **Vishva Rao**
 - **Winston Chen**
+- **Aryaman Narayanan**
 
 **Taryn Riddle** - Product Manager
 **Arhan Chhabra** - Co-Founder of Rove (YC W24) and Program Director of HUVSTP
