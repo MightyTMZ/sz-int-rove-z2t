@@ -237,6 +237,8 @@ Team Members:
 - **Aryaman Narayanan**
 
 **Taryn Riddle** - Product Manager
+
 **Arhan Chhabra** - Co-Founder of Rove (YC W24) and Program Director of HUVSTP
+**Max Morganroth** - CEO of Rove (YC W24)
 
 Lastly, shoutout to our other program directors **Anaiy Somalwar** and **Caleb Kline**!
